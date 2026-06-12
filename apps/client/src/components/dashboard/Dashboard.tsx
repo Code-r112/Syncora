@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Panel, Group, Separator } from "react-resizable-panels";
+
 import { useGlobalStore } from "@/store/global";
 import { Library, ListMusic, SlidersHorizontal, MoreHorizontal } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -53,25 +53,16 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
           animate="visible"
         >
           {/* --- DESKTOP LAYOUT (lg+) --- */}
-          <div className="hidden lg:flex lg:flex-1 w-full lg:overflow-hidden min-h-0">
-            <Group
-              direction="horizontal"
-              orientation="horizontal"
-              className="w-full h-full"
-              autoSaveId="syncora-layout-v2"
-            >
-              <Panel id="sidebar-left" defaultSize={25} minSize={20} maxSize={40}>
-                <Left />
-              </Panel>
-              <Separator className="w-1.5 cursor-col-resize bg-neutral-900/50 hover:bg-[#B026FF]/50 active:bg-[#B026FF] transition-colors relative after:absolute after:inset-y-0 after:-left-1 after:-right-1" />
-              <Panel id="main-content" defaultSize={50} minSize={30}>
-                <Main />
-              </Panel>
-              <Separator className="w-1.5 cursor-col-resize bg-neutral-900/50 hover:bg-[#B026FF]/50 active:bg-[#B026FF] transition-colors relative after:absolute after:inset-y-0 after:-left-1 after:-right-1" />
-              <Panel id="sidebar-right" defaultSize={25} minSize={20} maxSize={40}>
-                <Right />
-              </Panel>
-            </Group>
+          <div className="hidden lg:flex lg:flex-1 w-full lg:overflow-hidden min-h-0 bg-neutral-950">
+            <div className="w-[300px] flex-shrink-0 border-r border-neutral-900/50 h-full overflow-hidden">
+              <Left />
+            </div>
+            <div className="flex-1 min-w-0 h-full overflow-hidden">
+              <Main />
+            </div>
+            <div className="w-[320px] flex-shrink-0 border-l border-neutral-900/50 h-full overflow-hidden">
+              <Right />
+            </div>
           </div>
 
           {/* --- MOBILE LAYOUT (< lg) --- */}
