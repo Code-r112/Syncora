@@ -7,7 +7,7 @@ import { handleDiscover } from "@/routes/discover";
 import { handleHealth } from "@/routes/health";
 import { handleRoot } from "@/routes/root";
 import { handleStats } from "@/routes/stats";
-import { handleGetPresignedURL, handleUploadComplete } from "@/routes/upload";
+
 import { handleWebSocketUpgrade } from "@/routes/websocket";
 import { handleClose, handleMessage, handleOpen } from "@/routes/websocketHandlers";
 import { corsHeaders, errorResponse } from "@/utils/responses";
@@ -41,21 +41,7 @@ const server = Bun.serve<WSData>({
           case "/ws":
             return handleWebSocketUpgrade(req, server);
 
-          case "/upload/get-presigned-url":
-            if (IS_DEMO_MODE) {
-              response = errorResponse("Uploads disabled in demo mode", 403);
-            } else {
-              response = await handleGetPresignedURL(req);
-            }
-            break;
 
-          case "/upload/complete":
-            if (IS_DEMO_MODE) {
-              response = errorResponse("Uploads disabled in demo mode", 403);
-            } else {
-              response = await handleUploadComplete(req, server);
-            }
-            break;
 
           case "/stats":
             response = await handleStats();

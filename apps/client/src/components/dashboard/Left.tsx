@@ -6,7 +6,7 @@ import { MAX_NTP_MEASUREMENTS, useGlobalStore } from "@/store/global";
 import { useRoomStore } from "@/store/room";
 import { Hash } from "lucide-react";
 import { motion } from "motion/react";
-import { AudioUploaderMinimal } from "../AudioUploaderMinimal";
+
 import { Separator } from "../ui/separator";
 import { ConnectedUsersList } from "./ConnectedUsersList";
 import { RoomQRCode } from "./CopyRoom";
@@ -82,10 +82,6 @@ export const Left = ({ className }: LeftProps) => {
           <ul className="list-disc list-outside pl-4 space-y-1.5">
             <li className="text-xs leading-relaxed">{"Headphones recommended for the best listening experience."}</li>
           </ul>
-        </div>
-
-        <div className="pl-1">
-          <AudioUploaderMinimal />
         </div>
 
         {/* Creator Branding */}

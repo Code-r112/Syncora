@@ -2,10 +2,7 @@ import {
   DiscoverRoomsType,
   GetActiveRoomsType,
   GetDefaultAudioType,
-  GetUploadUrlType,
-  UploadCompleteResponseType,
-  UploadCompleteType,
-  UploadUrlResponseType,
+
 } from "@beatsync/shared";
 import axios from "axios";
 import { getApiUrl } from "./urls";
@@ -16,55 +13,6 @@ const baseAxios = axios.create({
   },
 });
 
-export const uploadAudioFile = async (data: { file: File; roomId: string }) => {
-  try {
-    // Step 1: Get presigned upload URL from server
-    const uploadUrlRequest: GetUploadUrlType = {
-      roomId: data.roomId,
-      fileName: data.file.name,
-      contentType: data.file.type,
-    };
-
-    const presignedURLResponse = await baseAxios.post<UploadUrlResponseType>(
-      "/upload/get-presigned-url",
-      uploadUrlRequest
-    );
-
-    const { uploadUrl, publicUrl } = presignedURLResponse.data;
-
-    // Step 2: Upload directly to R2 using presigned URL
-    const uploadResponse = await fetch(uploadUrl, {
-      method: "PUT",
-      body: data.file,
-      headers: {
-        "Content-Type": data.file.type,
-      },
-    });
-
-    if (!uploadResponse.ok) {
-      throw new Error(`Upload failed: ${uploadResponse.statusText}`);
-    }
-
-    // Step 3: Notify server that upload completed successfully
-    const uploadCompleteRequest: UploadCompleteType = {
-      roomId: data.roomId,
-      originalName: data.file.name,
-      publicUrl,
-    };
-
-    await baseAxios.post<UploadCompleteResponseType>("/upload/complete", uploadCompleteRequest);
-
-    return {
-      success: true,
-      publicUrl,
-    };
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || "Failed to upload audio file");
-    }
-    throw error;
-  }
-};
 
 export const fetchAudio = async (url: string) => {
   try {

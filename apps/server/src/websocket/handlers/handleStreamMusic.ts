@@ -57,7 +57,7 @@ export const handleStreamMusic: HandlerFunction<ExtractWSRequestFrom["STREAM_MUS
 
     // Pass the local backend URL to the clients to completely bypass CORS!
     // We add a timestamp query parameter to force the browser to bypass any corrupted cached files!
-    const r2Url = `${process.env.S3_PUBLIC_URL}/audio/${encodeURIComponent(fileName)}?t=${Date.now()}`;
+    const r2Url = `${process.env.PUBLIC_URL || "http://localhost:8080"}/audio/${encodeURIComponent(fileName)}?t=${Date.now()}`;
 
     // Add the audio source to the room and get updated sources list
     const sources = room.addAudioSource({
