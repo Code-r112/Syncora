@@ -1,10 +1,10 @@
 import { IS_DEMO_MODE } from "@/demo";
-import { generateAudioFileName, uploadBytes } from "@/lib/r2";
 import { globalManager } from "@/managers";
 import { MUSIC_PROVIDER_MANAGER } from "@/managers/MusicProviderManager";
 import { sendBroadcast } from "@/utils/responses";
 import type { HandlerFunction } from "@/websocket/types";
 import type { ExtractWSRequestFrom } from "@beatsync/shared";
+import sanitize from "sanitize-filename";
 
 export const handleStreamMusic: HandlerFunction<ExtractWSRequestFrom["STREAM_MUSIC"]> = async ({
   ws,
@@ -43,8 +43,8 @@ export const handleStreamMusic: HandlerFunction<ExtractWSRequestFrom["STREAM_MUS
     // Use provided track name or fallback to track ID
     const originalName = message.trackName ?? `track-${message.trackId}`;
 
-    // Generate a unique filename
-    const fileName = generateAudioFileName(`${originalName}.mp3`);
+    // Generate a unique filename using sanitize
+    const fileName = `${Date.now()}-${sanitize(originalName)}.mp3`;
 
     // Download the audio file using play-dl's built-in robust downloading
     // This bypasses YouTube's strict 403 Forbidden datacenter IPs rules
