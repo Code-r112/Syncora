@@ -11,15 +11,15 @@ export const Right = () => {
       <Tabs defaultValue="chat" className="flex flex-col h-full">
         <div className="p-2 pb-0 flex-shrink-0">
           <TabsList className="bg-neutral-900 w-full">
-            <TabsTrigger 
-              value="chat" 
+            <TabsTrigger
+              value="chat"
               className="flex-1 data-[state=active]:!bg-[#B026FF] data-[state=active]:!text-black"
             >
               <MessageCircle className="h-3.5 w-3.5 mr-1.5" />
               Chat
             </TabsTrigger>
-            <TabsTrigger 
-              value="equalizer" 
+            <TabsTrigger
+              value="equalizer"
               className="flex-1 data-[state=active]:!bg-[#B026FF] data-[state=active]:!text-black"
             >
               <SlidersHorizontal className="h-3.5 w-3.5 mr-1.5" />

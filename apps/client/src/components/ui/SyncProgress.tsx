@@ -326,8 +326,6 @@ export const SyncProgress = ({ isLoading = false, loadingMessage = "Loading..." 
           >
             Start System
           </motion.button>
-
-
         </motion.div>
       </OuterModal>
     );

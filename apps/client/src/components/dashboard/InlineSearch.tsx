@@ -297,7 +297,6 @@ export function InlineSearch() {
         </div>
       </form>
 
-
       {/* Search Results Dropdown */}
       <AnimatePresence>
         {showResults && canMutate && (

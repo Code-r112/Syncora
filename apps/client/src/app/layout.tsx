@@ -24,11 +24,27 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Syncora",
+  title: "Syncora | Built by Pranav Kokate",
   description:
-    "Sync music with your long-distance friends in real-time. Syncora is a synchronized music player for remote listening parties. Host a session today!",
-  keywords: ["music", "sync", "audio", "listening party", "real-time", "long-distance"],
-  authors: [{ name: "Pranav Kokate" }],
+    "Sync music with your long-distance friends in real-time. Syncora is a synchronized, ultra-fast music player for remote listening parties. Host a session today!",
+  keywords: ["music", "sync", "audio", "listening party", "real-time", "long-distance", "watch party"],
+  authors: [{ name: "Pranav Kokate", url: "https://github.com/kpran" }],
+  creator: "Pranav Kokate",
+  openGraph: {
+    title: "Syncora - Listen Together in Real-Time",
+    description:
+      "Experience perfectly synchronized music playback with friends, no matter where they are. Crafted with 💜 by Pranav Kokate.",
+    siteName: "Syncora",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Syncora - Listen Together in Real-Time",
+    description:
+      "Experience perfectly synchronized music playback with friends, no matter where they are. Crafted with 💜 by Pranav Kokate.",
+    creator: "@PranavKokate", // You can change this to your actual Twitter handle
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",

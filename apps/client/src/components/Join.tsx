@@ -7,7 +7,7 @@ import { generateName } from "@/lib/randomNames";
 import { validateFullRoomId, validatePartialRoomId } from "@/lib/room";
 import { useRoomStore } from "@/store/room";
 import { useQuery } from "@tanstack/react-query";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Crown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -83,9 +83,15 @@ export const Join = () => {
   };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="min-h-screen flex items-center justify-center py-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen flex items-center justify-center py-8"
+    >
       {/* Top-left app name */}
-      <div className="fixed top-0 left-0 right-0 px-6 py-4 flex items-center z-10">
+      <div className="fixed top-0 left-0 right-0 px-6 py-4 flex items-center z-10 gap-2">
+        <Crown className="w-5 h-5 text-[#B026FF]" fill="currentColor" />
         <span className="text-white font-bold text-xl tracking-tight">Syncora</span>
       </div>
       {/* <AnnouncementBanner /> */}
@@ -305,7 +311,6 @@ export const Join = () => {
           </motion.p>
         </motion.div>
 
-
         {/* Creator branding */}
         <motion.div
           className="flex flex-col items-center mt-6 gap-1"
@@ -314,7 +319,15 @@ export const Join = () => {
           transition={{ duration: 0.5, delay: 0.7 }}
         >
           <span className="text-neutral-400 text-sm font-medium tracking-wide">
-            Created by <a href="https://github.com/kpran" target="_blank" rel="noreferrer" className="text-[#B026FF] hover:underline font-bold transition-all">Pranav Kokate</a>
+            Created by{" "}
+            <a
+              href="https://github.com/kpran"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#B026FF] hover:underline font-bold transition-all"
+            >
+              Pranav Kokate
+            </a>
           </span>
           <span className="text-white text-2xl font-bold tracking-tight">Syncora</span>
         </motion.div>

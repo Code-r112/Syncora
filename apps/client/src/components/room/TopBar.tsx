@@ -29,13 +29,9 @@ export const TopBar = ({ roomId }: TopBarProps) => {
     return (
       <div className="h-8 bg-black/80 backdrop-blur-md z-50 flex items-center justify-between px-4 border-b border-zinc-800">
         <div className="flex items-center space-x-4 text-xs text-neutral-400 py-2 md:py-0">
-          {isAdmin && (
-            <div className="flex items-center">
-              <Crown className="h-3 w-3 text-[#B026FF]" fill="currentColor" />
-            </div>
-          )}
-          <Link href="/" className="font-medium hover:text-white transition-colors">
-            Syncora
+          <Link href="/" className="flex items-center gap-1.5 font-medium hover:text-white transition-colors">
+            <Crown className="h-3.5 w-3.5 text-[#B026FF]" fill="currentColor" />
+            <span>Syncora</span>
           </Link>
 
           {/* NTP Measurements Indicator */}
@@ -85,8 +81,6 @@ export const TopBar = ({ roomId }: TopBarProps) => {
             </span>
           </div>
         </div>
-
-
       </div>
     );
   }

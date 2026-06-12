@@ -51,7 +51,7 @@ export const handleStreamMusic: HandlerFunction<ExtractWSRequestFrom["STREAM_MUS
     const { AUDIO_DIR_PATH } = await import("@/demo");
     const { resolve } = await import("path");
     const filePath = resolve(AUDIO_DIR_PATH, fileName);
-    
+
     console.log(`Downloading audio to: ${filePath}`);
     await MUSIC_PROVIDER_MANAGER.downloadTrack(message.trackId, filePath, originalName);
 
@@ -60,9 +60,9 @@ export const handleStreamMusic: HandlerFunction<ExtractWSRequestFrom["STREAM_MUS
     const r2Url = `${process.env.S3_PUBLIC_URL}/audio/${encodeURIComponent(fileName)}?t=${Date.now()}`;
 
     // Add the audio source to the room and get updated sources list
-    const sources = room.addAudioSource({ 
+    const sources = room.addAudioSource({
       url: r2Url,
-      metadata: message.metadata
+      metadata: message.metadata,
     });
 
     console.log(`Successfully uploaded track to R2: ${r2Url}`);

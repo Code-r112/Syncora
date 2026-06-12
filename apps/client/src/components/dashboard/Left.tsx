@@ -98,7 +98,9 @@ export const Left = ({ className }: LeftProps) => {
           >
             <span>Crafted with</span>
             <span className="text-[#B026FF] group-hover:scale-125 transition-transform duration-300">💜</span>
-            <span>by <strong className="text-neutral-300 group-hover:text-white transition-colors">Pranav</strong></span>
+            <span>
+              by <strong className="text-neutral-300 group-hover:text-white transition-colors">Pranav</strong>
+            </span>
           </a>
         </div>
       </motion.div>

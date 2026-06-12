@@ -102,7 +102,7 @@ export const Queue = ({ className, ...rest }: React.ComponentProps<"div">) => {
             <div className="w-16 h-16 rounded-full bg-neutral-800/50 flex items-center justify-center mb-4">
               <ListMusic className="w-8 h-8 text-neutral-500" strokeWidth={1.5} />
             </div>
-            
+
             {isInitingSystem ? (
               <div className="text-neutral-400 font-medium">Loading tracks...</div>
             ) : canMutate ? (

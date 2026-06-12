@@ -231,11 +231,7 @@ export const QueueSortableItem = ({
         {/* Thumbnail */}
         <div className="w-10 h-10 flex-shrink-0 ml-3 rounded overflow-hidden bg-neutral-800 flex items-center justify-center select-none">
           {sourceState.source.metadata?.thumbnail ? (
-            <img 
-              src={sourceState.source.metadata.thumbnail} 
-              alt="Thumbnail" 
-              className="w-full h-full object-cover" 
-            />
+            <img src={sourceState.source.metadata.thumbnail} alt="Thumbnail" className="w-full h-full object-cover" />
           ) : (
             <Music className="w-4 h-4 text-neutral-500" />
           )}

@@ -54,7 +54,12 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
         >
           {/* --- DESKTOP LAYOUT (lg+) --- */}
           <div className="hidden lg:flex lg:flex-1 w-full lg:overflow-hidden min-h-0">
-            <Group direction="horizontal" orientation="horizontal" className="w-full h-full" autoSaveId="syncora-layout-v2">
+            <Group
+              direction="horizontal"
+              orientation="horizontal"
+              className="w-full h-full"
+              autoSaveId="syncora-layout-v2"
+            >
               <Panel id="sidebar-left" defaultSize={25} minSize={20} maxSize={40}>
                 <Left />
               </Panel>

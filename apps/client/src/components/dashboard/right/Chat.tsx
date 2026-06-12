@@ -340,8 +340,8 @@ export const Chat = () => {
             disabled={!message.trim()}
             className={cn(
               "absolute right-2 bottom-[4px] h-[28px] w-[28px] rounded-full flex items-center justify-center transition-all duration-200",
-              message.trim() 
-                ? "bg-[#B026FF] text-black hover:scale-105" 
+              message.trim()
+                ? "bg-[#B026FF] text-black hover:scale-105"
                 : "bg-transparent text-neutral-500 cursor-not-allowed"
             )}
             title="Send message"

@@ -13,32 +13,32 @@ interface Band {
 }
 
 const EQ_BANDS: Band[] = [
-  { label: "32",   freq: 32,    type: "lowshelf",  defaultGain: 0 },
-  { label: "64",   freq: 64,    type: "peaking",   defaultGain: 0 },
-  { label: "125",  freq: 125,   type: "peaking",   defaultGain: 0 },
-  { label: "250",  freq: 250,   type: "peaking",   defaultGain: 0 },
-  { label: "500",  freq: 500,   type: "peaking",   defaultGain: 0 },
-  { label: "1k",   freq: 1000,  type: "peaking",   defaultGain: 0 },
-  { label: "2k",   freq: 2000,  type: "peaking",   defaultGain: 0 },
-  { label: "4k",   freq: 4000,  type: "peaking",   defaultGain: 0 },
-  { label: "8k",   freq: 8000,  type: "peaking",   defaultGain: 0 },
-  { label: "16k",  freq: 16000, type: "highshelf", defaultGain: 0 },
+  { label: "32", freq: 32, type: "lowshelf", defaultGain: 0 },
+  { label: "64", freq: 64, type: "peaking", defaultGain: 0 },
+  { label: "125", freq: 125, type: "peaking", defaultGain: 0 },
+  { label: "250", freq: 250, type: "peaking", defaultGain: 0 },
+  { label: "500", freq: 500, type: "peaking", defaultGain: 0 },
+  { label: "1k", freq: 1000, type: "peaking", defaultGain: 0 },
+  { label: "2k", freq: 2000, type: "peaking", defaultGain: 0 },
+  { label: "4k", freq: 4000, type: "peaking", defaultGain: 0 },
+  { label: "8k", freq: 8000, type: "peaking", defaultGain: 0 },
+  { label: "16k", freq: 16000, type: "highshelf", defaultGain: 0 },
 ];
 
 const PRESETS: Record<string, number[]> = {
-  Flat:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  Bass:    [6, 5, 3, 1, 0, 0, 0, 0, 0, 0],
-  Treble:  [0, 0, 0, 0, 0, 1, 2, 3, 5, 6],
-  Rock:    [4, 3, 1, 0, -1, 1, 2, 3, 3, 2],
-  Pop:     [-1, 1, 3, 3, 1, 0, -1, -1, 0, 0],
-  Jazz:    [3, 2, 1, 2, -1, -1, 0, 1, 2, 3],
-  Vocal:   [-2, -1, 0, 2, 4, 4, 2, 0, -1, -2],
+  Flat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  Bass: [6, 5, 3, 1, 0, 0, 0, 0, 0, 0],
+  Treble: [0, 0, 0, 0, 0, 1, 2, 3, 5, 6],
+  Rock: [4, 3, 1, 0, -1, 1, 2, 3, 3, 2],
+  Pop: [-1, 1, 3, 3, 1, 0, -1, -1, 0, 0],
+  Jazz: [3, 2, 1, 2, -1, -1, 0, 1, 2, 3],
+  Vocal: [-2, -1, 0, 2, 4, 4, 2, 0, -1, -2],
 };
 
 const MAX_GAIN = 12;
 
 export const Equalizer = () => {
-  const [gains, setGains] = useState<number[]>(EQ_BANDS.map(b => b.defaultGain));
+  const [gains, setGains] = useState<number[]>(EQ_BANDS.map((b) => b.defaultGain));
   const [activePreset, setActivePreset] = useState("Flat");
   const filtersRef = useRef<BiquadFilterNode[]>([]);
   const draggingRef = useRef<number | null>(null);
@@ -97,8 +97,10 @@ export const Equalizer = () => {
     filtersRef.current = filters;
 
     return () => {
-      filters.forEach(f => {
-        try { f.disconnect(); } catch (_) {}
+      filters.forEach((f) => {
+        try {
+          f.disconnect();
+        } catch (_) {}
       });
     };
   }, []);
@@ -145,7 +147,7 @@ export const Equalizer = () => {
     const ratio = 1 - (clientY - rect.top) / rect.height;
     const clamped = Math.max(0, Math.min(1, ratio));
     const gain = Math.round((clamped * 2 - 1) * MAX_GAIN);
-    setGains(prev => {
+    setGains((prev) => {
       const next = [...prev];
       next[index] = gain;
       applyGains(next);
@@ -174,7 +176,7 @@ export const Equalizer = () => {
 
       {/* Presets */}
       <div className="flex flex-wrap gap-1.5">
-        {Object.keys(PRESETS).map(name => (
+        {Object.keys(PRESETS).map((name) => (
           <button
             key={name}
             onClick={() => handlePreset(name)}
@@ -200,35 +202,33 @@ export const Equalizer = () => {
           return (
             <div key={band.label} className="flex flex-col items-center gap-1.5 flex-1 h-full">
               {/* Gain value */}
-              <span className={`text-[9px] font-mono tabular-nums ${
-                isNeutral ? "text-neutral-500" : isPositive ? "text-[#B026FF]" : "text-red-400"
-              }`}>
-                {gain > 0 ? "+" : ""}{gain}
+              <span
+                className={`text-[9px] font-mono tabular-nums ${
+                  isNeutral ? "text-neutral-500" : isPositive ? "text-[#B026FF]" : "text-red-400"
+                }`}
+              >
+                {gain > 0 ? "+" : ""}
+                {gain}
               </span>
 
               {/* Vertical slider track */}
               <div
-                ref={el => { sliderRefs.current[i] = el; }}
+                ref={(el) => {
+                  sliderRefs.current[i] = el;
+                }}
                 className="relative w-full rounded-full cursor-ns-resize flex-1"
                 style={{ background: "rgba(255,255,255,0.06)" }}
-                onPointerDown={e => handlePointerDown(e, i)}
-                onPointerMove={e => handlePointerMove(e, i)}
+                onPointerDown={(e) => handlePointerDown(e, i)}
+                onPointerMove={(e) => handlePointerMove(e, i)}
                 onPointerUp={handlePointerUp}
               >
                 {/* Center zero line */}
-                <div
-                  className="absolute w-full h-px bg-neutral-700"
-                  style={{ top: "50%" }}
-                />
+                <div className="absolute w-full h-px bg-neutral-700" style={{ top: "50%" }} />
                 {/* Fill */}
                 <motion.div
                   className="absolute w-full rounded-full"
                   style={{
-                    background: isNeutral
-                      ? "rgba(255,255,255,0.15)"
-                      : isPositive
-                        ? "#B026FF"
-                        : "#f87171",
+                    background: isNeutral ? "rgba(255,255,255,0.15)" : isPositive ? "#B026FF" : "#f87171",
                     bottom: isPositive ? "50%" : `${100 - pct}%`,
                     top: isPositive ? `${100 - pct}%` : "50%",
                   }}

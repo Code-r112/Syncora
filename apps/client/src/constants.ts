@@ -1,4 +1,4 @@
 export const SOCIAL_LINKS = {
-  discord: "https://discord.beatsync.gg",
-  github: "https://github.com/freeman-jiang/beatsync",
+  discord: "https://github.com/Code-r112/Syncora", // Updated to the new repo
+  github: "https://github.com/Code-r112/Syncora",
 } as const;

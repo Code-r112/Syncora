@@ -92,10 +92,11 @@ export function SearchResults({ className, onTrackSelect }: SearchResultsProps) 
             title: track.title,
             artist: track.performer?.name ?? "Unknown Artist",
             album: track.album?.title,
-            releaseYear: track.album?.release_date_original?.substring(0, 4) ?? track.released_at?.toString()?.substring(0, 4),
+            releaseYear:
+              track.album?.release_date_original?.substring(0, 4) ?? track.released_at?.toString()?.substring(0, 4),
             thumbnail: track.album?.image?.large ?? track.album?.image?.thumbnail,
             duration: track.duration,
-          }
+          },
         },
       });
 

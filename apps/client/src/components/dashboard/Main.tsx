@@ -19,7 +19,7 @@ export const Main = () => {
     >
       <AnimatePresence mode="wait">
         {isPreviewMode ? (
-          <motion.div 
+          <motion.div
             key="preview"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -30,7 +30,7 @@ export const Main = () => {
             <FullPreview />
           </motion.div>
         ) : (
-          <motion.div 
+          <motion.div
             key="queue"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
