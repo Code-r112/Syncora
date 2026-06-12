@@ -1,6 +1,6 @@
 import { calculateScheduleTimeMs, DEFAULT_CLIENT_RTT_MS } from "@/config";
 import { IS_DEMO_MODE } from "@/demo";
-import { deleteObjectsWithPrefix } from "@/lib/r2";
+
 import { ChatManager } from "@/managers/ChatManager";
 import { calculateGainFromDistanceToSource } from "@/spatial";
 import { debounce } from "@/utils/debounce";
@@ -1048,15 +1048,6 @@ export class RoomManager {
     // Stop any running intervals
     this.stopSpatialAudio();
     this.stopHeartbeatChecking();
-
-    if (!IS_DEMO_MODE) {
-      try {
-        const result = await deleteObjectsWithPrefix(`room-${this.roomId}`);
-        console.log(`✅ Room ${this.roomId} objects deleted: ${result.deletedCount}`);
-      } catch (error) {
-        console.error(`❌ Room ${this.roomId} cleanup failed:`, error);
-      }
-    }
   }
 
   /**

@@ -1,5 +1,5 @@
 import { ADMIN_SECRET, IS_DEMO_MODE } from "@/demo";
-import { BackupManager } from "@/managers/BackupManager";
+
 import { getActiveRooms } from "@/routes/active";
 import { handleGetDefaultAudio } from "@/routes/default";
 import { handleServeAudio } from "@/routes/demoAudio";
@@ -104,24 +104,7 @@ if (IS_DEMO_MODE) {
   console.log(`🔑 Admin secret: ${ADMIN_SECRET}`);
 }
 
-if (!IS_DEMO_MODE) {
-  // S3 BACKUPS DISABLED FOR LOCAL DEPLOYMENT
-  // Restore state from backup on startup
-  /*
-  BackupManager.restoreState().catch((error) => {
-    console.error("Failed to restore state on startup:", error);
-  });
 
-  // Set up periodic backups every minute (for Render persistence issues)
-  const BACKUP_INTERVAL_MS = 60 * 1000; // 1 minute
-  setInterval(() => {
-    console.log("🔄 Performing periodic backup at", new Date().toISOString());
-    BackupManager.backupState().catch((error) => {
-      console.error("Failed to perform periodic backup:", error);
-    });
-  }, BACKUP_INTERVAL_MS);
-  */
-}
 
 // Simple graceful shutdown
 const shutdown = async () => {
