@@ -110,6 +110,7 @@ export class MusicProviderManager {
         output: outputPath,
         noCheckCertificate: true,
         noWarnings: true,
+        // @ts-expect-error - extractorArgs is not yet defined in yt-dlp-exec types
         extractorArgs: "youtube:player-client=android",
       }, {
         stdio: "ignore"
