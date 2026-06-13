@@ -15,7 +15,12 @@ interface SearchForm {
   query: string;
 }
 
-export function InlineSearch() {
+interface InlineSearchProps {
+  isMobileOverlay?: boolean;
+  onClose?: () => void;
+}
+
+export function InlineSearch({ isMobileOverlay, onClose }: InlineSearchProps = {}) {
   const [showResults, setShowResults] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);
   const [showCheckmark, setShowCheckmark] = React.useState(false);
@@ -164,7 +169,7 @@ export function InlineSearch() {
 
   return (
     <div
-      className="relative w-full"
+      className={cn("relative w-full", isMobileOverlay && "flex flex-col h-full")}
       onBlur={handleBlur}
       onFocus={() => {
         // Cancel any pending blur timeout when focus returns
@@ -173,142 +178,144 @@ export function InlineSearch() {
         }
       }}
     >
-      {/* Search Input */}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="relative group">
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5">
-            <AnimatePresence mode="wait">
-              {activeStreamJobs > 0 ? (
-                <motion.div
-                  key="streaming"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="flex items-center gap-1.5"
-                >
-                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-full h-full" viewBox="0 0 100 100">
-                      <motion.circle
-                        cx="50"
-                        cy="50"
-                        r="35"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="8"
-                        strokeLinecap="round"
-                        className="text-[#B026FF]"
-                        strokeDasharray={2 * Math.PI * 35 * 0.25}
-                        animate={{
-                          rotate: [0, 360],
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        style={{
-                          transformOrigin: "center",
-                        }}
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-xs font-mono text-purple-400 font-medium">{activeStreamJobs}</span>
-                </motion.div>
-              ) : showCheckmark ? (
-                <motion.div
-                  key="checkmark"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="w-5 h-5 flex items-center justify-center"
-                >
-                  <ArrowDown className="w-full h-full text-[#B026FF]" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="search"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="w-5 h-5 flex items-center justify-center"
-                >
-                  <SearchIcon
-                    className={cn(
-                      "w-full h-full transition-colors duration-200",
-                      canMutate ? "text-neutral-400 group-focus-within:text-white/80" : "text-neutral-600"
-                    )}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          <input
-            {...register("query")}
-            type="text"
-            placeholder={canMutate ? "What do you want to play?" : "Search requires admin permissions"}
-            onFocus={handleFocus}
-            onBlur={() => setIsFocused(false)}
-            disabled={!canMutate}
-            className={cn(
-              "w-full h-10 pr-24 sm:pr-20 border border-neutral-600/30 rounded-lg text-base sm:text-sm font-normal transition-all duration-200 focus:outline-none truncate",
-              activeStreamJobs > 0 ? "pl-14" : "pl-10",
-              canMutate
-                ? "bg-neutral-800/60 hover:bg-neutral-800/80 focus:bg-neutral-800 focus:ring-2 focus:ring-[#B026FF]/70 text-white placeholder:text-neutral-400"
-                : "bg-neutral-800/50 text-neutral-500 placeholder:text-neutral-600 cursor-not-allowed"
-            )}
-          />
-          <div className="absolute right-1 top-1/2 transform -translate-y-1/2 pointer-events-none w-12 flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              {showCheckmark ? (
-                <motion.div
-                  key="checkmark"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="flex items-center justify-center"
-                >
-                  <ArrowDown className="w-5 h-5 text-[#B026FF]" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="shortcut"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="flex items-center justify-center"
-                >
-                  <kbd
-                    className={cn(
-                      "inline-flex h-6 items-center gap-0.5 rounded border border-neutral-600/50 bg-neutral-700/50 px-2 font-mono text-xs font-medium transition-colors duration-200",
-                      canMutate ? "text-neutral-400" : "text-neutral-600 opacity-50"
-                    )}
+      {/* Search Input Row */}
+      <div
+        className={cn(isMobileOverlay ? "px-4 py-4 flex items-center gap-3 shrink-0 bg-[#1a1a1a] shadow-md z-10" : "")}
+      >
+        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 min-w-0">
+          <div className="relative group">
+            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5">
+              <AnimatePresence mode="wait">
+                {activeStreamJobs > 0 ? (
+                  <motion.div
+                    key="streaming"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="flex items-center gap-1.5"
                   >
-                    <span className="text-xs">⌘</span>K
-                  </kbd>
-                </motion.div>
+                    <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-full h-full" viewBox="0 0 100 100">
+                        <motion.circle
+                          cx="50"
+                          cy="50"
+                          r="35"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="8"
+                          strokeLinecap="round"
+                          className="text-[#b026ff]"
+                          strokeDasharray={2 * Math.PI * 35 * 0.25}
+                          animate={{
+                            rotate: [0, 360],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          style={{
+                            transformOrigin: "center",
+                          }}
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-xs font-mono text-purple-400 font-medium">{activeStreamJobs}</span>
+                  </motion.div>
+                ) : showCheckmark ? (
+                  <motion.div
+                    key="checkmark"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="w-5 h-5 flex items-center justify-center"
+                  >
+                    <ArrowDown className="w-full h-full text-[#b026ff]" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="search"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="w-5 h-5 flex items-center justify-center"
+                  >
+                    <SearchIcon
+                      className={cn(
+                        "w-full h-full transition-colors duration-200",
+                        canMutate ? "text-neutral-400 group-focus-within:text-white/80" : "text-neutral-600"
+                      )}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            <input
+              {...register("query")}
+              type="text"
+              placeholder="What do you want to play?"
+              autoFocus={isMobileOverlay}
+              onFocus={handleFocus}
+              onBlur={() => setIsFocused(false)}
+              disabled={!canMutate}
+              className={cn(
+                "w-full h-12 rounded-full pl-12 pr-16 text-sm font-sans transition-all focus:outline-none focus:ring-1 focus:ring-white/20",
+                canMutate
+                  ? "bg-[#242424] hover:bg-[#2a2a2a] focus:bg-[#2a2a2a] text-white placeholder-[#b3b3b3]"
+                  : "bg-neutral-800/50 text-neutral-500 placeholder:text-neutral-600 cursor-not-allowed"
               )}
-            </AnimatePresence>
+            />
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                {!isFocused && !watchedQuery && canMutate && !isMobile && (
+                  <motion.div
+                    key="shortcut"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="flex items-center justify-center"
+                  >
+                    <kbd className="inline-flex h-6 items-center gap-0.5 rounded border border-neutral-600/50 bg-neutral-700/50 px-2 font-mono text-xs font-medium text-neutral-400">
+                      <span className="text-xs">⌘</span>K
+                    </kbd>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+        {isMobileOverlay && onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-2 text-neutral-400 hover:text-white transition-colors shrink-0"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        )}
+      </div>
 
-      {/* Search Results Dropdown */}
+      {/* Search Results Dropdown / Overlay */}
       <AnimatePresence>
-        {showResults && canMutate && (
+        {(showResults || isMobileOverlay) && canMutate && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-full mt-2 w-full bg-neutral-900/95 backdrop-blur-xl border border-neutral-700/50 rounded-2xl shadow-2xl overflow-hidden z-[60]"
+            className={cn(
+              "overflow-hidden z-[60]",
+              isMobileOverlay
+                ? "flex-1 bg-[#121212] flex flex-col rounded-none shadow-none border-none mt-0"
+                : "absolute top-full mt-2 w-full bg-neutral-900/95 backdrop-blur-xl border border-neutral-700/50 rounded-2xl shadow-2xl"
+            )}
           >
-            {/* Mobile close button */}
-            {isMobile && (
+            {/* Mobile close button (only for absolute dropdown mode, not for full overlay) */}
+            {isMobile && !isMobileOverlay && (
               <div className="sticky top-0 z-10 bg-neutral-900/95 backdrop-blur-xl border-b border-neutral-800/50">
                 <button
                   onClick={handleCloseResults}
@@ -323,8 +330,8 @@ export function InlineSearch() {
 
             <div
               className={cn(
-                "overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-neutral-600/30 scrollbar-track-transparent hover:scrollbar-thumb-neutral-600/50 bg-neutral-900",
-                isMobile ? "max-h-[70vh]" : "max-h-[60vh]"
+                "overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-neutral-600/30 scrollbar-track-transparent hover:scrollbar-thumb-neutral-600/50 bg-[#121212]",
+                isMobileOverlay ? "flex-1 pb-4" : isMobile ? "max-h-[70vh]" : "max-h-[60vh]"
               )}
             >
               {isSearching || searchResults ? (

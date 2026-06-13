@@ -2,17 +2,21 @@
 import { SOCIAL_LINKS } from "@/constants";
 import { audioContextManager } from "@/lib/audioContextManager";
 import { MAX_NTP_MEASUREMENTS, useGlobalStore } from "@/store/global";
-import { Crown, Hash, Users } from "lucide-react";
+import { Crown, Hash, Users, Video, MonitorPlay, Search, SlidersHorizontal } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import { SyncProgress } from "../ui/SyncProgress";
+import { InlineSearch } from "../dashboard/InlineSearch";
 
 interface TopBarProps {
   roomId: string;
+  onEqClick?: () => void;
+  onSearchClick?: () => void;
 }
 
-export const TopBar = ({ roomId }: TopBarProps) => {
+export const TopBar = ({ roomId, onEqClick, onSearchClick }: TopBarProps) => {
   const isLoadingAudio = useGlobalStore((state) => state.isInitingSystem);
   const isSynced = useGlobalStore((state) => state.isSynced);
   const roundTripEstimate = useGlobalStore((state) => state.roundTripEstimate);
@@ -24,18 +28,21 @@ export const TopBar = ({ roomId }: TopBarProps) => {
   const currentUser = useGlobalStore((state) => state.currentUser);
   const isAdmin = currentUser?.isAdmin || false;
 
+  const isVideoMode = useGlobalStore((state) => state.isVideoMode);
+  const setIsVideoMode = useGlobalStore((state) => state.setIsVideoMode);
+
   // Show minimal nav bar when synced and not loading
   if (!isLoadingAudio && isSynced) {
     return (
-      <div className="h-8 bg-black/80 backdrop-blur-md z-50 flex items-center justify-between px-4 border-b border-zinc-800">
-        <div className="flex items-center space-x-4 text-xs text-neutral-400 py-2 md:py-0">
-          <Link href="/" className="flex items-center gap-1.5 font-medium hover:text-white transition-colors">
-            <Crown className="h-3.5 w-3.5 text-[#B026FF]" fill="currentColor" />
-            <span>Syncora</span>
+      <div className="h-14 bg-transparent z-50 flex items-center justify-between px-4 gap-4">
+        <div className="flex-1 flex items-center justify-start space-x-4 text-xs text-[#b3b3b3] py-2 md:py-0 font-sans font-bold overflow-hidden">
+          <Link href="/" className="flex shrink-0 items-center gap-2 hover:text-white transition-colors">
+            <Crown className="h-6 w-6 text-[#ffffff]" fill="currentColor" />
+            <span className="text-white text-lg font-bold tracking-tight">Syncora</span>
           </Link>
 
           {/* NTP Measurements Indicator */}
-          <div className="items-center hidden md:flex">
+          <div className="items-center hidden md:flex font-medium font-mono text-[11px] gap-1 shrink-0">
             <motion.svg width="14" height="14" viewBox="0 0 14 14" className="mr-1">
               <circle
                 cx="7"
@@ -44,7 +51,7 @@ export const TopBar = ({ roomId }: TopBarProps) => {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
-                className="text-neutral-600"
+                className="text-[#333333]"
               />
               <motion.circle
                 cx="7"
@@ -53,7 +60,7 @@ export const TopBar = ({ roomId }: TopBarProps) => {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
-                className="text-[#B026FF]"
+                className="text-[#b026ff]"
                 strokeDasharray={`${(syncMeasurementCount / MAX_NTP_MEASUREMENTS) * 31.4} 31.4`}
                 strokeLinecap="round"
                 transform="rotate(-90 7 7)"
@@ -64,15 +71,15 @@ export const TopBar = ({ roomId }: TopBarProps) => {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               />
             </motion.svg>
-            <span className="text-xs">
+            <span>
               {syncMeasurementCount}/{MAX_NTP_MEASUREMENTS}
             </span>
           </div>
-          <div className="flex items-center">
+          <div className="hidden lg:flex items-center font-medium font-mono text-[11px] shrink-0">
             <Hash size={12} className="mr-1" />
             <span className="flex items-center">{roomId}</span>
           </div>
-          <div className="flex items-center">
+          <div className="hidden lg:flex items-center font-medium font-mono text-[11px] shrink-0">
             <Users size={12} className="mr-1" />
             <span className="flex items-center">
               <span className="mr-1.5">
@@ -80,6 +87,21 @@ export const TopBar = ({ roomId }: TopBarProps) => {
               </span>
             </span>
           </div>
+        </div>
+
+        {/* CENTER SIDE (Search Bar) - Desktop Only */}
+        <div className="hidden lg:block flex-1 w-full max-w-lg min-w-[200px]">
+          <InlineSearch />
+        </div>
+
+        {/* RIGHT SIDE OF TOPBAR */}
+        <div className="flex-1 flex items-center justify-end space-x-1 shrink-0">
+          <button className="lg:hidden p-2 text-[#b3b3b3] hover:text-white transition-colors" onClick={onEqClick}>
+            <SlidersHorizontal className="w-6 h-6" />
+          </button>
+          <button className="lg:hidden p-2 text-[#b3b3b3] hover:text-white transition-colors" onClick={onSearchClick}>
+            <Search className="w-6 h-6" />
+          </button>
         </div>
       </div>
     );

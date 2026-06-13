@@ -155,7 +155,7 @@ export const ConnectedUserItem = memo<ConnectedUserItemProps>(({ client, isCurre
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onClick={() => onSetAdmin(client.clientId, true)} className="text-xs">
-                <Crown className="h-3 w-3 mr-2 text-[#B026FF]" />
+                <Crown className="h-3 w-3 mr-2 text-[#b026ff]" />
                 Make Admin
               </DropdownMenuItem>
             )}

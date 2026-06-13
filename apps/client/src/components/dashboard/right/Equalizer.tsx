@@ -182,7 +182,7 @@ export const Equalizer = () => {
             onClick={() => handlePreset(name)}
             className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-all duration-150 ${
               activePreset === name
-                ? "bg-[#B026FF] text-black"
+                ? "bg-[#b026ff] text-black"
                 : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700 hover:text-white"
             }`}
           >
@@ -204,7 +204,7 @@ export const Equalizer = () => {
               {/* Gain value */}
               <span
                 className={`text-[9px] font-mono tabular-nums ${
-                  isNeutral ? "text-neutral-500" : isPositive ? "text-[#B026FF]" : "text-red-400"
+                  isNeutral ? "text-neutral-500" : isPositive ? "text-[#b026ff]" : "text-red-400"
                 }`}
               >
                 {gain > 0 ? "+" : ""}
@@ -228,7 +228,7 @@ export const Equalizer = () => {
                 <motion.div
                   className="absolute w-full rounded-full"
                   style={{
-                    background: isNeutral ? "rgba(255,255,255,0.15)" : isPositive ? "#B026FF" : "#f87171",
+                    background: isNeutral ? "rgba(255,255,255,0.15)" : isPositive ? "#b026ff" : "#f87171",
                     bottom: isPositive ? "50%" : `${100 - pct}%`,
                     top: isPositive ? `${100 - pct}%` : "50%",
                   }}
@@ -239,7 +239,7 @@ export const Equalizer = () => {
                   className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 shadow-md"
                   style={{
                     bottom: `calc(${pct}% - 6px)`,
-                    borderColor: isNeutral ? "#666" : isPositive ? "#B026FF" : "#f87171",
+                    borderColor: isNeutral ? "#666" : isPositive ? "#b026ff" : "#f87171",
                     background: "#1a1a1a",
                   }}
                   whileHover={{ scale: 1.3 }}

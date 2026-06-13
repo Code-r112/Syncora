@@ -130,7 +130,7 @@ export const RoomQRCode = () => {
                         transition={{ duration: 0.1, ease: "easeOut" }}
                         className="absolute inset-0 flex items-center justify-center"
                       >
-                        <Check size={16} className="text-[#B026FF]" />
+                        <Check size={16} className="text-[#b026ff]" />
                       </motion.div>
                     ) : (
                       <motion.div

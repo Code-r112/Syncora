@@ -181,77 +181,77 @@ export const Player = () => {
       <div className="w-full max-w-[37rem]">
         <div className="flex items-center justify-center gap-6 mb-2">
           <button
-            className={cn(
-              "text-gray-400 hover:text-white transition-colors cursor-pointer hover:scale-105 duration-200",
-              isShuffled && "text-primary-400",
-              !canMutate && "opacity-50 cursor-not-allowed"
-            )}
             onClick={handleShuffle}
-            disabled={audioSourceCount <= 1 || !canMutate}
+            disabled={!canMutate || audioSourceCount === 0}
+            className={cn(
+              "transition-all",
+              !canMutate || audioSourceCount === 0
+                ? "opacity-30 cursor-not-allowed"
+                : "hover:scale-105 active:scale-95",
+              isShuffled ? "text-[#b026ff]" : "text-[#b3b3b3] hover:text-white"
+            )}
+            title="Toggle Shuffle"
           >
             <div className="relative">
-              <Shuffle className={cn("size-4 relative", isShuffled ? "text-[#B026FF]" : "text-current")} />
+              <Shuffle className="w-5 h-5" />
               {isShuffled && (
-                <div className="absolute w-1 h-1 bg-[#B026FF] rounded-full bottom-0 top-4.5 left-1/2 transform -translate-x-1/2 translate-y-1/2"></div>
+                <div className="absolute w-1 h-1 bg-[#b026ff] rounded-full -bottom-1.5 left-1/2 transform -translate-x-1/2"></div>
               )}
             </div>
           </button>
           <button
-            className={cn(
-              "text-gray-400 hover:text-white transition-colors cursor-pointer hover:scale-105 duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
-              !canMutate && "opacity-50 cursor-not-allowed"
-            )}
             onClick={handleSkipBack}
-            disabled={isShuffled || audioSourceCount <= 1 || !canMutate}
+            disabled={!canMutate || audioSourceCount === 0}
+            className={cn(
+              "text-[#b3b3b3] hover:text-white transition-all",
+              !canMutate || audioSourceCount === 0 ? "opacity-30 cursor-not-allowed" : "hover:scale-105 active:scale-95"
+            )}
           >
-            <SkipBack className="w-7 h-7 md:w-5 md:h-5 fill-current" />
+            <SkipBack className="w-6 h-6 fill-current" />
           </button>
           <button
             className={cn(
-              "bg-[#B026FF] text-black rounded-full p-3 md:p-2 hover:scale-105 transition-transform cursor-pointer duration-200 focus:outline-none",
-              !canMutate && "opacity-50 cursor-not-allowed"
+              "w-10 h-10 flex items-center justify-center rounded-full bg-white text-black transition-all",
+              !canMutate || audioSourceCount === 0
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:scale-105 active:scale-95 hover:bg-gray-200"
             )}
             onClick={handlePlay}
             disabled={!canMutate}
           >
-            {isPlaying ? (
-              <Pause className="w-5 h-5 md:w-4 md:h-4 fill-current stroke-1" />
-            ) : (
-              <Play className="w-5 h-5 md:w-4 md:h-4 fill-current" />
-            )}
+            {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
           </button>
           <button
             className={cn(
-              "text-gray-400 hover:text-white transition-colors cursor-pointer hover:scale-105 duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
-              !canMutate && "opacity-50 cursor-not-allowed"
+              "text-[#b3b3b3] hover:text-white transition-all",
+              !canMutate || audioSourceCount === 0 ? "opacity-30 cursor-not-allowed" : "hover:scale-105 active:scale-95"
             )}
             onClick={handleSkipForward}
             disabled={audioSourceCount <= 1 || !canMutate}
           >
-            <SkipForward className="w-7 h-7 md:w-5 md:h-5 fill-current" />
+            <SkipForward className="w-6 h-6 fill-current" />
           </button>
-          <button className="text-gray-400 hover:text-white transition-colors cursor-default   hover:scale-105 duration-200">
-            <div className="relative">
-              <Repeat className="w-4 h-4 relative text-[#B026FF]" />
-              <div className="absolute w-1 h-1 bg-[#B026FF] rounded-full bottom-0 top-4.5 left-1/2 transform -translate-x-1/2 translate-y-1/2"></div>
-            </div>
+          <button className="text-[#b3b3b3] hover:text-white transition-all hover:scale-105 active:scale-95">
+            <Repeat className="w-5 h-5" />
           </button>
         </div>
-        <div className="flex items-center gap-0">
-          <span className="text-xs text-muted-foreground min-w-11 select-none">{formatTime(sliderPosition)}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] text-[#a7a7a7] font-variant-numeric: tabular-nums min-w-[40px] text-right select-none">
+            {formatTime(sliderPosition)}
+          </span>
           <Slider
             value={[sliderPosition]}
             min={0}
-            max={trackDuration || 1} // Prevent max=0 which causes rendering issues
-            step={0.01}
+            max={trackDuration || 1}
+            step={0.1}
             onValueChange={handleSliderChange}
             onValueCommit={handleSliderCommit}
             onPointerUp={handlePointerUp}
             disabled={!canMutate || trackDuration <= 0}
-            className={cn(!canMutate && "opacity-50")}
+            className={cn("flex-1", !canMutate || trackDuration <= 0 ? "opacity-50" : "cursor-pointer group")}
           />
-          <span className="text-xs text-muted-foreground min-w-11 text-right select-none">
-            {trackDuration > 0 ? formatTime(trackDuration) : ""}
+          <span className="text-[11px] text-[#a7a7a7] font-variant-numeric: tabular-nums min-w-[40px] select-none">
+            {trackDuration > 0 ? formatTime(trackDuration) : "0:00"}
           </span>
         </div>
       </div>

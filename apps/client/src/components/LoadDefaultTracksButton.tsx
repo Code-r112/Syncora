@@ -54,9 +54,9 @@ export const LoadDefaultTracksButton = ({ className }: LoadDefaultTracksButtonPr
   return (
     <motion.button
       className={cn(
-        "relative inline-flex items-center justify-center px-5 py-2 bg-[#B026FF] text-black rounded-full",
+        "relative inline-flex items-center justify-center px-5 py-2 bg-[#b026ff] text-black rounded-full",
         "font-medium text-xs tracking-wide cursor-pointer",
-        "hover:shadow-lg hover:shadow-[#B026FF]/40 transition-shadow duration-500",
+        "hover:shadow-lg hover:shadow-[#b026ff]/40 transition-shadow duration-500",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         className
       )}

@@ -41,8 +41,6 @@ const server = Bun.serve<WSData>({
           case "/ws":
             return handleWebSocketUpgrade(req, server);
 
-
-
           case "/stats":
             response = await handleStats();
             break;
@@ -103,8 +101,6 @@ console.log(`HTTP listening on http://${server.hostname}:${server.port}`);
 if (IS_DEMO_MODE) {
   console.log(`🔑 Admin secret: ${ADMIN_SECRET}`);
 }
-
-
 
 // Simple graceful shutdown
 const shutdown = async () => {

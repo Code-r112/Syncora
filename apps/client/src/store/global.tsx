@@ -92,6 +92,7 @@ interface GlobalStateValues {
   isInitingSystem: boolean;
   hasUserStartedSystem: boolean; // Track if user has clicked "Start System" at least once
   selectedAudioUrl: string;
+  isVideoMode: boolean;
 
   // Websocket
   socket: WebSocket | null;
@@ -169,6 +170,7 @@ interface GlobalState extends GlobalStateValues {
   handleSetAudioSources: (data: SetAudioSourcesType) => void;
 
   setIsInitingSystem: (isIniting: boolean) => void;
+  setIsVideoMode: (isVideoMode: boolean) => void;
   reorderClient: (clientId: string) => void;
   setAdminStatus: (clientId: string, isAdmin: boolean) => void;
   changeAudioSource: (url: string) => boolean;
@@ -249,6 +251,7 @@ const initialState: GlobalStateValues = {
   playbackStartTime: 0,
   playbackOffset: 0,
   selectedAudioUrl: "",
+  isVideoMode: false,
 
   // Spatial audio
   isShuffled: false,
@@ -625,6 +628,7 @@ export const useGlobalStore = create<GlobalState>((set, get) => {
     ...initialState,
 
     // Add all required methods
+    setIsVideoMode: (isVideoMode) => set({ isVideoMode }),
     reorderClient: (clientId) => {
       const state = get();
       const { socket } = getSocket(state);

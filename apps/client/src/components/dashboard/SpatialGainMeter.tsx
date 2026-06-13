@@ -51,7 +51,7 @@ export const SpatialGainMeter = () => {
 
   // Get color based on gain value using smooth interpolation - neutral gray to green
   const getColor = () => {
-    if (gainValue >= 0.9) return "#B026FF"; // purple-500
+    if (gainValue >= 0.9) return "#b026ff"; // purple-500
     if (gainValue >= 0.7) return "#C04BF2"; // purple-400
     if (gainValue >= 0.5) return "#D170E6"; // purple-300
     if (gainValue >= 0.3) return "#a3a3a3"; // neutral-400

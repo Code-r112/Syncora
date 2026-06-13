@@ -22,7 +22,7 @@ export const handleDeleteAudioSources: HandlerFunction<ExtractWSRequestFrom["DEL
 
   // Simply remove the urls from the room state
   const { updated } = room.removeAudioSources(urlsToDelete);
-  
+
   sendBroadcast({
     server,
     roomId: ws.data.roomId,

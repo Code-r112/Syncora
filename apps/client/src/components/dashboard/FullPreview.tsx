@@ -1,6 +1,7 @@
 import { useGlobalStore } from "@/store/global";
 import { Music, Minimize2 } from "lucide-react";
 import { motion } from "motion/react";
+import { Player } from "../room/Player";
 
 export const FullPreview = () => {
   const audioSources = useGlobalStore((state) => state.audioSources);
@@ -67,6 +68,10 @@ export const FullPreview = () => {
             {metadata.album} {metadata.releaseYear ? `• ${metadata.releaseYear}` : ""}
           </div>
         )}
+
+        <div className="w-full mt-8 md:mt-12 shrink-0 max-w-md">
+          <Player />
+        </div>
       </motion.div>
     </div>
   );

@@ -103,7 +103,7 @@ export function SearchResults({ className, onTrackSelect }: SearchResultsProps) 
       // Call the callback to handle UI dismissal
       onTrackSelect?.();
 
-      // toast.success(`Adding "${formattedTrackName}" to queue...`);
+      toast.success(`Downloading "${formattedTrackName}"...`);
     } catch (error) {
       console.error("Failed to add track:", error);
       toast.error("Failed to add track to queue");

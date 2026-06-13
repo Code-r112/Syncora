@@ -64,10 +64,10 @@ export const WebSocketManager = ({ roomId, username }: WebSocketManagerProps) =>
     // Clear previous connection if it exists
     if (socket) {
       console.log("Clearing previous connection");
-      socket.onclose = () => { };
-      socket.onerror = () => { };
-      socket.onmessage = () => { };
-      socket.onopen = () => { };
+      socket.onclose = () => {};
+      socket.onerror = () => {};
+      socket.onmessage = () => {};
+      socket.onopen = () => {};
       socket.close();
     }
 

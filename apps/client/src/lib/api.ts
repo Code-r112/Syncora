@@ -1,9 +1,4 @@
-import {
-  DiscoverRoomsType,
-  GetActiveRoomsType,
-  GetDefaultAudioType,
-
-} from "@beatsync/shared";
+import { DiscoverRoomsType, GetActiveRoomsType, GetDefaultAudioType } from "@beatsync/shared";
 import axios from "axios";
 import { getApiUrl } from "./urls";
 
@@ -13,6 +8,30 @@ const baseAxios = axios.create({
   },
 });
 
+export const uploadAudioFile = async (data: { file: File; roomId: string }) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", data.file);
+    formData.append("roomId", data.roomId);
+
+    // Assuming a new simplified upload endpoint will be built
+    const response = await baseAxios.post("/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return {
+      success: true,
+      publicUrl: response.data?.publicUrl,
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Failed to upload audio file");
+    }
+    throw error;
+  }
+};
 
 export const fetchAudio = async (url: string) => {
   try {

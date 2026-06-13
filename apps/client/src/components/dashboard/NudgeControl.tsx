@@ -38,7 +38,7 @@ export const NudgeControl = () => {
         <span
           className={cn(
             "text-[11px] font-mono min-w-[3.5rem] text-center tabular-nums",
-            nudgeOffsetMs < 0 ? "text-[#B026FF]/70" : nudgeOffsetMs > 0 ? "text-red-500/70" : "text-neutral-400"
+            nudgeOffsetMs < 0 ? "text-[#b026ff]/70" : nudgeOffsetMs > 0 ? "text-red-500/70" : "text-neutral-400"
           )}
         >
           {-nudgeOffsetMs >= 0 ? "+" : ""}

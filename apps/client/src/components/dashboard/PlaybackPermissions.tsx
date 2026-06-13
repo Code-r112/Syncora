@@ -58,7 +58,7 @@ export const PlaybackPermissions = () => {
           <motion.div
             className={cn(
               "absolute inset-y-0.5 w-1/2 transition-colors duration-300 rounded-lg",
-              isAdminOnly ? "bg-[#B026FF]" : "bg-[#B026FF]"
+              isAdminOnly ? "bg-[#b026ff]" : "bg-[#b026ff]"
             )}
             initial={false}
             animate={{

@@ -91,13 +91,13 @@ export const Join = () => {
     >
       {/* Top-left app name */}
       <div className="fixed top-0 left-0 right-0 px-6 py-4 flex items-center z-10 gap-2">
-        <Crown className="w-5 h-5 text-[#B026FF]" fill="currentColor" />
+        <Crown className="w-5 h-5 text-[#b026ff]" fill="currentColor" />
         <span className="text-white font-bold text-xl tracking-tight">Syncora</span>
       </div>
       {/* <AnnouncementBanner /> */}
-      <div className="w-full px-2.5 lg:px-1 max-w-[28rem] mx-auto">
+      <div className="w-full px-6 md:px-4 lg:px-1 max-w-[28rem] mx-auto">
         <motion.div
-          className="flex flex-col items-center justify-center p-6 bg-neutral-900 rounded-lg border border-neutral-800 shadow-xl mx-auto"
+          className="flex flex-col items-center justify-center p-6 md:p-8 bg-[#121212] rounded-2xl mx-auto shadow-2xl"
           initial={{ opacity: 0, y: 10, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -110,8 +110,8 @@ export const Join = () => {
               transition={{ duration: 0.4, delay: 0.1 }}
             >
               <motion.div className="relative flex items-center justify-center">
-                <motion.div className="size-2 bg-[#B026FF] rounded-full" />
-                <motion.div className="absolute size-2.5 bg-[#B026FF]/30 rounded-full animate-ping" />
+                <motion.div className="size-2 bg-[#b026ff] rounded-full" />
+                <motion.div className="absolute size-2.5 bg-[#b026ff]/30 rounded-full animate-ping" />
               </motion.div>
               <span className="text-xs text-neutral-500 ml-0.5">
                 {numActiveUsers} {numActiveUsers === 1 ? "person" : "people"} listening now
@@ -119,7 +119,7 @@ export const Join = () => {
             </motion.div>
           ) : null}
           <motion.h2
-            className="text-base font-medium tracking-tight mb-1 text-white"
+            className="text-xl md:text-2xl font-bold tracking-tight mb-1 md:mb-2 text-white"
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.13 }}
@@ -128,7 +128,7 @@ export const Join = () => {
           </motion.h2>
 
           <motion.p
-            className="text-neutral-400 mb-5 text-center text-xs"
+            className="text-[#b3b3b3] mb-5 md:mb-8 text-center text-xs md:text-sm font-medium"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.15 }}
@@ -179,8 +179,8 @@ export const Join = () => {
                         <InputOTPSlot
                           key={index}
                           index={index}
-                          className="w-9 h-10 text-base bg-neutral-800/80 border-neutral-700 transition-all duration-200 
-                          focus-within:border-primary/70 focus-within:bg-neutral-800 focus-within:ring-1 focus-within:ring-primary/30"
+                          className="w-9 h-11 md:w-10 md:h-12 text-base md:text-lg font-bold bg-[#1a1a1a] border-0 rounded-md transition-all duration-200 
+                          focus-within:bg-[#282828] focus-within:ring-2 focus-within:ring-[#b026ff]"
                         />
                       ))}
                     </InputOTPGroup>
@@ -204,12 +204,12 @@ export const Join = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
             >
-              <div className="text-sm text-neutral-400">
+              <div className="text-sm font-medium text-[#b3b3b3]">
                 You&apos;ll join as{" "}
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span
                     key={username}
-                    className="text-primary font-medium inline-block"
+                    className="text-[#b026ff] font-bold inline-block"
                     initial={{
                       opacity: 0,
                       filter: "blur(8px)",
@@ -241,17 +241,15 @@ export const Join = () => {
               </Button>
             </motion.div>
 
-            <div className="flex flex-col gap-3 mt-5">
+            <div className="flex flex-col gap-3 mt-6">
               <motion.button
                 type="button"
-                className="px-5 py-2 bg-[#B026FF] text-black rounded-full font-medium text-sm tracking-wide cursor-pointer w-full hover:shadow-lg hover:shadow-[#B026FF]/40 transition-shadow duration-500 flex items-center justify-center"
+                className="px-6 py-3.5 bg-[#b026ff] text-white rounded-full font-bold text-sm tracking-wide cursor-pointer w-full hover:bg-[#a21ee0] transition-colors flex items-center justify-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                whileHover={{
-                  scale: 1.015,
-                }}
-                whileTap={{ scale: 0.985 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2 }}
                 onClick={handleCreateRoom}
                 disabled={isJoining || isCreating}
               >
@@ -302,7 +300,7 @@ export const Join = () => {
           </form>
 
           <motion.p
-            className="text-neutral-500 mt-5 text-center text-xs leading-relaxed"
+            className="text-[#b3b3b3] mt-6 md:mt-8 text-center text-[11px] md:text-xs font-medium leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
@@ -313,7 +311,7 @@ export const Join = () => {
 
         {/* Creator branding */}
         <motion.div
-          className="flex flex-col items-center mt-6 gap-1"
+          className="flex flex-col items-center mt-4 md:mt-6 gap-0.5 md:gap-1"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
@@ -324,7 +322,7 @@ export const Join = () => {
               href="https://github.com/kpran"
               target="_blank"
               rel="noreferrer"
-              className="text-[#B026FF] hover:underline font-bold transition-all"
+              className="text-[#b026ff] hover:underline font-bold transition-all"
             >
               Pranav Kokate
             </a>
