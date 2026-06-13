@@ -1,5 +1,4 @@
 import { IS_DEMO_MODE } from "@/demo";
-import { listObjectsWithPrefix } from "@/lib/r2";
 import { sendBroadcast } from "@/utils/responses";
 import { requireCanMutate } from "@/websocket/middlewares";
 import type { HandlerFunction } from "@/websocket/types";

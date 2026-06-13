@@ -148,9 +148,7 @@ export const Bottom = () => {
                 )}
               </div>
               <div className="flex flex-col overflow-hidden min-w-0 flex-1">
-                <MarqueeText className="text-[13px] font-bold text-white w-full block">
-                  {metadata.title}
-                </MarqueeText>
+                <MarqueeText className="text-[13px] font-bold text-white w-full block">{metadata.title}</MarqueeText>
                 <span className="text-[11px] text-[#b3b3b3] truncate w-full block">
                   {metadata.artist || "Unknown Artist"}
                 </span>

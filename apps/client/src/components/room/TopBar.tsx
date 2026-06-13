@@ -42,7 +42,6 @@ export const TopBar = ({ roomId, onEqClick, onSearchClick, onProfileClick }: Top
             <Crown className="h-6 w-6 text-[#ffffff]" fill="currentColor" />
             <span className="text-white text-lg font-bold tracking-tight">Syncora</span>
           </Link>
-
         </div>
 
         {/* CENTER SIDE (Search Bar) - Desktop Only */}
@@ -62,7 +61,7 @@ export const TopBar = ({ roomId, onEqClick, onSearchClick, onProfileClick }: Top
 
           {/* User Profile Trigger */}
           <div className="flex items-center space-x-3 pr-2">
-            <button 
+            <button
               onClick={onProfileClick}
               className="flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-tr from-[#b026ff] to-[#d87bff] text-white font-bold text-xl uppercase shadow-md hover:scale-105 hover:shadow-lg hover:shadow-[#b026ff]/20 transition-all active:scale-95"
             >

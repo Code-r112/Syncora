@@ -161,7 +161,7 @@ export const Main = () => {
   const searchResults = useGlobalStore((state) => state.searchResults);
   const [visibleCount, setVisibleCount] = useState(10);
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
-  
+
   const showSearchResults = isSearching || (searchQuery && searchQuery.trim() !== "");
 
   const selectedAudio = audioSources.find((source) => source.source.url === selectedAudioUrl);
@@ -237,9 +237,7 @@ export const Main = () => {
             {showSearchResults ? (
               <div className="mt-4 pb-8">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-white tracking-tight">
-                    Search Results for "{searchQuery}"
-                  </h2>
+                  <h2 className="text-2xl font-bold text-white tracking-tight">Search Results for "{searchQuery}"</h2>
                 </div>
                 <SearchResults
                   onTrackSelect={() => {
@@ -251,108 +249,108 @@ export const Main = () => {
               <>
                 {/* DESKTOP LAYOUT */}
                 <div className="hidden lg:block mt-4">
-              <h2 className="text-2xl font-bold text-white mb-6">Latest Songs</h2>
-              <div className="grid grid-cols-4 gap-6">
-                {visibleSongs.slice(0, visibleCount).map((song) => {
-                  return (
-                    <div
-                      key={song.id}
-                      className="bg-[#181818] p-3 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-3"
-                      onClick={() => handleLoadMockTrack(song)}
-                    >
-                      <div className="relative aspect-square w-full shadow-[0_8px_24px_rgba(0,0,0,0.5)] rounded-md overflow-hidden bg-[#282828]">
-                        <img
-                          src={song.image}
-                          alt={song.title}
-                          className="w-full h-full object-cover"
-                          onError={() => setFailedImages((prev) => new Set(prev).add(song.id))}
-                        />
-                        <button className="absolute right-2 bottom-2 bg-[#b026ff] text-white p-3 rounded-full shadow-[0_8px_8px_rgba(0,0,0,0.3)] transition-all hover:scale-105 active:scale-95 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0">
-                          <Play className="w-6 h-6 ml-1" fill="currentColor" />
-                        </button>
-                      </div>
-                      <div className="flex flex-col min-w-0">
-                        <span className="font-bold text-base truncate text-white">{song.title}</span>
-                        <span className="text-sm text-[#b3b3b3] truncate mt-1">{song.artist}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              {visibleCount < visibleSongs.length && (
-                <div className="mt-8 flex justify-center">
-                  <button
-                    onClick={() => setVisibleCount((prev) => prev + 10)}
-                    className="bg-transparent border border-neutral-600 hover:border-white text-white font-medium py-1.5 px-6 rounded-full transition-all duration-300 hover:scale-105"
-                  >
-                    Load more
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* MOBILE LAYOUT */}
-            <div className="lg:hidden mt-2">
-              {/* Recently Played */}
-              <h2 className="text-[22px] font-bold text-white mb-4 tracking-tight">Recently played</h2>
-              <div className="grid grid-cols-2 gap-2 mb-8">
-                {visibleSongs.slice(0, 6).map((song) => (
-                  <div
-                    key={`recent-${song.id}`}
-                    className="bg-[#2a2a2a] hover:bg-[#3a3a3a] transition-colors rounded-md flex items-center overflow-hidden h-14 shadow-sm cursor-pointer"
-                    onClick={() => handleLoadMockTrack(song)}
-                  >
-                    <img
-                      src={song.image}
-                      className="h-full aspect-square object-cover shadow-[4px_0_10px_rgba(0,0,0,0.3)]"
-                      onError={() => setFailedImages((prev) => new Set(prev).add(song.id))}
-                    />
-                    <span className="font-bold text-xs text-white px-2.5 truncate flex-1 leading-tight">
-                      {song.title}
-                    </span>
+                  <h2 className="text-2xl font-bold text-white mb-6">Latest Songs</h2>
+                  <div className="grid grid-cols-4 gap-6">
+                    {visibleSongs.slice(0, visibleCount).map((song) => {
+                      return (
+                        <div
+                          key={song.id}
+                          className="bg-[#181818] p-3 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-3"
+                          onClick={() => handleLoadMockTrack(song)}
+                        >
+                          <div className="relative aspect-square w-full shadow-[0_8px_24px_rgba(0,0,0,0.5)] rounded-md overflow-hidden bg-[#282828]">
+                            <img
+                              src={song.image}
+                              alt={song.title}
+                              className="w-full h-full object-cover"
+                              onError={() => setFailedImages((prev) => new Set(prev).add(song.id))}
+                            />
+                            <button className="absolute right-2 bottom-2 bg-[#b026ff] text-white p-3 rounded-full shadow-[0_8px_8px_rgba(0,0,0,0.3)] transition-all hover:scale-105 active:scale-95 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0">
+                              <Play className="w-6 h-6 ml-1" fill="currentColor" />
+                            </button>
+                          </div>
+                          <div className="flex flex-col min-w-0">
+                            <span className="font-bold text-base truncate text-white">{song.title}</span>
+                            <span className="text-sm text-[#b3b3b3] truncate mt-1">{song.artist}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                ))}
-              </div>
-
-              {/* Fresh new music */}
-              <h2 className="text-[22px] font-bold text-white mb-4 tracking-tight">Fresh new music</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {visibleSongs.slice(6, visibleCount < 6 ? 12 : visibleCount + 6).map((song) => (
-                  <div
-                    key={`mobile-${song.id}`}
-                    className="bg-[#181818] p-2 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-2"
-                    onClick={() => handleLoadMockTrack(song)}
-                  >
-                    <div className="relative aspect-square w-full shadow-[0_8px_24px_rgba(0,0,0,0.5)] rounded-md overflow-hidden bg-[#282828]">
-                      <img
-                        src={song.image}
-                        alt={song.title}
-                        className="w-full h-full object-cover"
-                        onError={() => setFailedImages((prev) => new Set(prev).add(song.id))}
-                      />
-                      <button className="absolute right-2 bottom-2 bg-[#b026ff] text-white p-2.5 rounded-full shadow-[0_8px_8px_rgba(0,0,0,0.3)] transition-all active:scale-95">
-                        <Play className="w-5 h-5 ml-0.5" fill="currentColor" />
+                  {visibleCount < visibleSongs.length && (
+                    <div className="mt-8 flex justify-center">
+                      <button
+                        onClick={() => setVisibleCount((prev) => prev + 10)}
+                        className="bg-transparent border border-neutral-600 hover:border-white text-white font-medium py-1.5 px-6 rounded-full transition-all duration-300 hover:scale-105"
+                      >
+                        Load more
                       </button>
                     </div>
-                    <div className="flex flex-col min-w-0">
-                      <span className="font-bold text-[13px] truncate text-white">{song.title}</span>
-                      <span className="text-[11px] text-[#b3b3b3] truncate mt-0.5">{song.artist}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {visibleCount + 6 < visibleSongs.length && (
-                <div className="mt-8 mb-4 flex justify-center">
-                  <button
-                    onClick={() => setVisibleCount((prev) => prev + 10)}
-                    className="bg-transparent border border-neutral-600 hover:border-white text-white font-medium py-1.5 px-6 rounded-full transition-all duration-300"
-                  >
-                    Load more
-                  </button>
+                  )}
                 </div>
-              )}
-            </div>
-            </>
+
+                {/* MOBILE LAYOUT */}
+                <div className="lg:hidden mt-2">
+                  {/* Recently Played */}
+                  <h2 className="text-[22px] font-bold text-white mb-4 tracking-tight">Recently played</h2>
+                  <div className="grid grid-cols-2 gap-2 mb-8">
+                    {visibleSongs.slice(0, 6).map((song) => (
+                      <div
+                        key={`recent-${song.id}`}
+                        className="bg-[#2a2a2a] hover:bg-[#3a3a3a] transition-colors rounded-md flex items-center overflow-hidden h-14 shadow-sm cursor-pointer"
+                        onClick={() => handleLoadMockTrack(song)}
+                      >
+                        <img
+                          src={song.image}
+                          className="h-full aspect-square object-cover shadow-[4px_0_10px_rgba(0,0,0,0.3)]"
+                          onError={() => setFailedImages((prev) => new Set(prev).add(song.id))}
+                        />
+                        <span className="font-bold text-xs text-white px-2.5 truncate flex-1 leading-tight">
+                          {song.title}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Fresh new music */}
+                  <h2 className="text-[22px] font-bold text-white mb-4 tracking-tight">Fresh new music</h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {visibleSongs.slice(6, visibleCount < 6 ? 12 : visibleCount + 6).map((song) => (
+                      <div
+                        key={`mobile-${song.id}`}
+                        className="bg-[#181818] p-2 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-2"
+                        onClick={() => handleLoadMockTrack(song)}
+                      >
+                        <div className="relative aspect-square w-full shadow-[0_8px_24px_rgba(0,0,0,0.5)] rounded-md overflow-hidden bg-[#282828]">
+                          <img
+                            src={song.image}
+                            alt={song.title}
+                            className="w-full h-full object-cover"
+                            onError={() => setFailedImages((prev) => new Set(prev).add(song.id))}
+                          />
+                          <button className="absolute right-2 bottom-2 bg-[#b026ff] text-white p-2.5 rounded-full shadow-[0_8px_8px_rgba(0,0,0,0.3)] transition-all active:scale-95">
+                            <Play className="w-5 h-5 ml-0.5" fill="currentColor" />
+                          </button>
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="font-bold text-[13px] truncate text-white">{song.title}</span>
+                          <span className="text-[11px] text-[#b3b3b3] truncate mt-0.5">{song.artist}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {visibleCount + 6 < visibleSongs.length && (
+                    <div className="mt-8 mb-4 flex justify-center">
+                      <button
+                        onClick={() => setVisibleCount((prev) => prev + 10)}
+                        className="bg-transparent border border-neutral-600 hover:border-white text-white font-medium py-1.5 px-6 rounded-full transition-all duration-300"
+                      >
+                        Load more
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
             )}
           </motion.div>
         )}

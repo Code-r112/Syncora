@@ -18,7 +18,7 @@ export const MarqueeText = ({ children, className, speed = 15 }: MarqueeTextProp
         setIsOverflowing(textRef.current.scrollWidth > containerRef.current.clientWidth);
       }
     };
-    
+
     checkOverflow();
     // Re-check on resize or when content changes
     window.addEventListener("resize", checkOverflow);
@@ -27,11 +27,8 @@ export const MarqueeText = ({ children, className, speed = 15 }: MarqueeTextProp
 
   return (
     <div ref={containerRef} className={cn("overflow-hidden whitespace-nowrap w-full relative", className)}>
-      <div 
-        className={cn(
-          "inline-block",
-          isOverflowing && "animate-marquee w-max"
-        )}
+      <div
+        className={cn("inline-block", isOverflowing && "animate-marquee w-max")}
         style={{ animationDuration: `${speed}s` }}
       >
         <span ref={textRef} className={cn("inline-block", isOverflowing && "pr-8")}>

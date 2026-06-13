@@ -162,8 +162,6 @@ export const Equalizer = () => {
 
   return (
     <div className="flex flex-col h-full p-4 gap-4 select-none">
-
-
       {/* Presets */}
       <div className="flex flex-wrap gap-1.5">
         {Object.keys(PRESETS).map((name) => (

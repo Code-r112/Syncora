@@ -149,7 +149,9 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                         {activeRightTab === "chat" ? (
                           <div className="flex-1 overflow-hidden h-full flex flex-col">
                             <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">Chat</span>
+                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">
+                                Chat
+                              </span>
                             </div>
                             <div className="flex-1 overflow-hidden">
                               <Chat />
@@ -158,7 +160,9 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                         ) : activeRightTab === "eq" ? (
                           <div className="flex-1 overflow-hidden h-full flex flex-col">
                             <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">Equalizer</span>
+                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">
+                                Equalizer
+                              </span>
                             </div>
                             <div className="flex-1 overflow-auto">
                               <Equalizer />
@@ -167,7 +171,9 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                         ) : (
                           <div className="flex-1 overflow-hidden h-full flex flex-col">
                             <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">Queue</span>
+                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">
+                                Queue
+                              </span>
                             </div>
                             <div className="flex-1 overflow-y-auto overflow-x-hidden">
                               <div className="p-4 pt-0">
@@ -268,7 +274,9 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                           className="h-full flex flex-col"
                         >
                           <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                            <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">Queue</span>
+                            <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">
+                              Queue
+                            </span>
                           </div>
                           <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pt-0">
                             <Queue />
@@ -284,7 +292,9 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                           className="h-full flex flex-col"
                         >
                           <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                            <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">Chat</span>
+                            <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">
+                              Chat
+                            </span>
                           </div>
                           <Chat />
                         </motion.div>
@@ -305,7 +315,9 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                     className="absolute inset-0 z-50 bg-[#121212] flex flex-col rounded-lg overflow-hidden"
                   >
                     <div className="px-4 py-4 flex justify-between items-center shrink-0 bg-[#1a1a1a] shadow-md z-10">
-                      <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">Equalizer</span>
+                      <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">
+                        Equalizer
+                      </span>
                       <button
                         onClick={() => setShowMobileEq(false)}
                         className="p-1.5 hover:bg-neutral-800 rounded-full transition-colors"

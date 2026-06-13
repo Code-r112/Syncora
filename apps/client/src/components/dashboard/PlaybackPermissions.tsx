@@ -44,9 +44,7 @@ export const PlaybackPermissions = () => {
               <Crown className="h-4 w-4 text-[#b026ff]" />
               Admin Only Controls
             </h2>
-            <p className="text-xs text-neutral-500 max-w-[200px]">
-              Only room admins can pause, play, or skip tracks.
-            </p>
+            <p className="text-xs text-neutral-500 max-w-[200px]">Only room admins can pause, play, or skip tracks.</p>
           </div>
           <Switch
             checked={isAdminOnly}
