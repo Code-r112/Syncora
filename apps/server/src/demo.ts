@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "fs";
+import { readFileSync, readdirSync, mkdirSync } from "fs";
 import { resolve } from "path";
 
 // ── Flag & Config ──────────────────────────────────────────────
@@ -6,6 +6,8 @@ export const IS_DEMO_MODE = process.env.DEMO === "1";
 export const DEMO_ROOM_ID = "000000";
 
 const AUDIO_DIR = resolve(process.env.DEMO_AUDIO_DIR ?? "./demo-audio");
+mkdirSync(AUDIO_DIR, { recursive: true });
+
 export const ADMIN_SECRET = process.env.DEMO_ADMIN_SECRET ?? "beatsync";
 const AUDIO_EXTENSIONS = new Set([".mp3", ".wav", ".flac", ".ogg", ".m4a"]);
 
