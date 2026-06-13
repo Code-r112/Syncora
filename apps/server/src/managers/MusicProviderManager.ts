@@ -110,6 +110,7 @@ export class MusicProviderManager {
         output: outputPath,
         noCheckCertificate: true,
         noWarnings: true,
+        extractorArgs: "youtube:player-client=android",
       });
     } catch (error) {
       throw new Error(`Download failed: ${error instanceof Error ? error.message : "Unknown error"}`, { cause: error });
