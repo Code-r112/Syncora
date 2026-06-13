@@ -9,6 +9,7 @@ import { Play, Bell, History, Settings } from "lucide-react";
 import { sendWSRequest } from "@/utils/ws";
 import { ClientActionEnum } from "@beatsync/shared";
 import { toast } from "sonner";
+import { SearchResults } from "./SearchResults";
 
 const LATEST_SONGS = [
   {
@@ -155,8 +156,13 @@ export const Main = () => {
   const currentTime = useGlobalStore((state) => state.currentTime);
   const socket = useGlobalStore((state) => state.socket);
   const canMutate = useCanMutate();
+  const searchQuery = useGlobalStore((state) => state.searchQuery);
+  const isSearching = useGlobalStore((state) => state.isSearching);
+  const searchResults = useGlobalStore((state) => state.searchResults);
   const [visibleCount, setVisibleCount] = useState(10);
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
+  
+  const showSearchResults = isSearching || (searchQuery && searchQuery.trim() !== "");
 
   const selectedAudio = audioSources.find((source) => source.source.url === selectedAudioUrl);
 
@@ -183,7 +189,6 @@ export const Main = () => {
         },
       },
     });
-    toast.success(`Downloading ${song.title}...`);
   };
 
   const visibleSongs = LATEST_SONGS.filter((song) => !failedImages.has(song.id));
@@ -229,15 +234,30 @@ export const Main = () => {
               )}
             </AnimatePresence>
 
-            {/* DESKTOP LAYOUT */}
-            <div className="hidden lg:block mt-4">
+            {showSearchResults ? (
+              <div className="mt-4 pb-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-white tracking-tight">
+                    Search Results for "{searchQuery}"
+                  </h2>
+                </div>
+                <SearchResults
+                  onTrackSelect={() => {
+                    useGlobalStore.getState().setSearchQuery("");
+                  }}
+                />
+              </div>
+            ) : (
+              <>
+                {/* DESKTOP LAYOUT */}
+                <div className="hidden lg:block mt-4">
               <h2 className="text-2xl font-bold text-white mb-6">Latest Songs</h2>
               <div className="grid grid-cols-4 gap-6">
                 {visibleSongs.slice(0, visibleCount).map((song) => {
                   return (
                     <div
                       key={song.id}
-                      className="bg-[#181818] p-4 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-4"
+                      className="bg-[#181818] p-3 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-3"
                       onClick={() => handleLoadMockTrack(song)}
                     >
                       <div className="relative aspect-square w-full shadow-[0_8px_24px_rgba(0,0,0,0.5)] rounded-md overflow-hidden bg-[#282828]">
@@ -300,7 +320,7 @@ export const Main = () => {
                 {visibleSongs.slice(6, visibleCount < 6 ? 12 : visibleCount + 6).map((song) => (
                   <div
                     key={`mobile-${song.id}`}
-                    className="bg-[#181818] p-3 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-3"
+                    className="bg-[#181818] p-2 rounded-md hover:bg-[#282828] transition-all cursor-pointer group flex flex-col gap-2"
                     onClick={() => handleLoadMockTrack(song)}
                   >
                     <div className="relative aspect-square w-full shadow-[0_8px_24px_rgba(0,0,0,0.5)] rounded-md overflow-hidden bg-[#282828]">
@@ -332,6 +352,8 @@ export const Main = () => {
                 </div>
               )}
             </div>
+            </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

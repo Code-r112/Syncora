@@ -84,8 +84,11 @@ export class MusicProviderManager {
         const ytSearch = (await import("yt-search")).default;
         const result = await ytSearch(fallbackSearchName);
         if (result.videos.length > 0) {
-          videoId = result.videos[0].videoId;
-          idMapCache.set(id, videoId);
+          const fetchedVideoId = result.videos[0].videoId;
+          if (fetchedVideoId) {
+            videoId = fetchedVideoId;
+            idMapCache.set(id, fetchedVideoId);
+          }
         }
       }
 
@@ -105,7 +108,7 @@ export class MusicProviderManager {
         audioFormat: "mp3",
         ffmpegLocation: ffmpegPath || undefined,
         output: outputPath,
-        noCheckCertificates: true,
+        noCheckCertificate: true,
         noWarnings: true,
       });
     } catch (error) {

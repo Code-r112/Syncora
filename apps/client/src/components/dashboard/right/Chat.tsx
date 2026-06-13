@@ -314,9 +314,9 @@ export const Chat = () => {
       {/* Input Area - Fixed at bottom */}
       <div
         ref={inputAreaRef}
-        className="absolute bottom-0 left-0 right-0 border-t border-neutral-800/50 p-2 pt-3 bg-neutral-900 z-10"
+        className="absolute bottom-0 left-0 right-0 p-4 pt-2 bg-gradient-to-t from-[#121212] via-[#121212] to-transparent z-10"
       >
-        <div className="w-full relative">
+        <div className="w-full relative mt-4">
           <textarea
             ref={inputRef}
             value={message}
@@ -326,10 +326,10 @@ export const Chat = () => {
             onCompositionEnd={() => setIsComposing(false)}
             placeholder="Message"
             className={cn(
-              "w-full resize-none rounded-2xl bg-neutral-800/50 pl-4 pr-11 py-2 text-base sm:text-sm",
+              "w-full resize-none rounded-full bg-[#242424] pl-4 pr-11 py-2.5 text-[14px]",
               "placeholder:text-neutral-500 text-neutral-100",
-              "border border-neutral-700/50",
-              "focus:outline-none",
+              "border border-white/5",
+              "focus:outline-none focus:ring-1 focus:ring-white/20 transition-all",
               "field-sizing-content max-h-[120px] overflow-auto",
               "scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent"
             )}
@@ -339,14 +339,14 @@ export const Chat = () => {
             onClick={handleSend}
             disabled={!message.trim()}
             className={cn(
-              "absolute right-2 bottom-[4px] h-[28px] w-[28px] rounded-full flex items-center justify-center transition-all duration-200",
+              "absolute right-1.5 bottom-1.5 h-[30px] w-[30px] rounded-full flex items-center justify-center transition-all duration-200",
               message.trim()
                 ? "bg-[#b026ff] text-black hover:scale-105"
                 : "bg-transparent text-neutral-500 cursor-not-allowed"
             )}
             title="Send message"
           >
-            <Send className="w-3.5 h-3.5 ml-[1px] mt-[1px]" />
+            <Send className="w-4 h-4 pr-[2px] pt-[2px]" />
           </button>
         </div>
       </div>

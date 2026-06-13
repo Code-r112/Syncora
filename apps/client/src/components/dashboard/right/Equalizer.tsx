@@ -162,17 +162,7 @@ export const Equalizer = () => {
 
   return (
     <div className="flex flex-col h-full p-4 gap-4 select-none">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-white">Equalizer</h3>
-        <button
-          onClick={handleReset}
-          className="text-neutral-400 hover:text-white transition-colors p-1.5 rounded-full bg-neutral-800 hover:bg-neutral-700"
-          title="Reset Equalizer"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-        </button>
-      </div>
+
 
       {/* Presets */}
       <div className="flex flex-wrap gap-1.5">

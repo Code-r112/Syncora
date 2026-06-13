@@ -6,6 +6,7 @@ import { useGlobalStore } from "@/store/global";
 import { Maximize2, Music, Play, Pause, MonitorSpeaker } from "lucide-react";
 import { useCanMutate } from "@/store/global";
 import { useEffect, useState } from "react";
+import { MarqueeText } from "../ui/marquee-text";
 
 const MobileProgressBar = () => {
   const isPlaying = useGlobalStore((state) => state.isPlaying);
@@ -95,9 +96,9 @@ export const Bottom = () => {
                   </div>
                 </div>
                 <div className="flex flex-col overflow-hidden min-w-0 text-left items-start flex-1">
-                  <span className="text-sm font-semibold text-white truncate group-hover:underline decoration-white/50 underline-offset-2 w-full block">
+                  <MarqueeText className="text-sm font-semibold text-white group-hover:underline decoration-white/50 underline-offset-2 block w-full">
                     {metadata.title}
-                  </span>
+                  </MarqueeText>
                   <span className="text-xs text-neutral-400 truncate w-full block">
                     {metadata.artist ? `${metadata.artist} • ` : ""}
                     {metadata.album ? `${metadata.album}` : ""}
@@ -147,7 +148,9 @@ export const Bottom = () => {
                 )}
               </div>
               <div className="flex flex-col overflow-hidden min-w-0 flex-1">
-                <span className="text-[13px] font-bold text-white truncate w-full block">{metadata.title}</span>
+                <MarqueeText className="text-[13px] font-bold text-white w-full block">
+                  {metadata.title}
+                </MarqueeText>
                 <span className="text-[11px] text-[#b3b3b3] truncate w-full block">
                   {metadata.artist || "Unknown Artist"}
                 </span>

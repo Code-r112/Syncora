@@ -61,15 +61,14 @@ export const ConnectedUserItem = memo<ConnectedUserItemProps>(({ client, isCurre
 
   const avatarContent = (
     <div className="relative">
-      <Avatar className="h-8 w-8">
-        <AvatarImage src={client.location?.flagSvgURL} className="object-cover w-full h-full" />
-        <AvatarFallback className={isCurrentUser ? "bg-primary-600" : "bg-neutral-600"}>
+      <Avatar className="h-10 w-10">
+        <AvatarFallback className={cn("text-sm", isCurrentUser ? "bg-[#b026ff] text-white font-bold" : "bg-neutral-800 text-neutral-300 font-medium")}>
           {client.username
             .split("-")
             .map((part) => part[0])
             .join("")
             .slice(0, 2)
-            .toUpperCase()}{" "}
+            .toUpperCase()}
         </AvatarFallback>
       </Avatar>
       {/* Admin crown indicator */}
@@ -84,8 +83,8 @@ export const ConnectedUserItem = memo<ConnectedUserItemProps>(({ client, isCurre
   return (
     <motion.div
       className={cn(
-        "flex items-center gap-2 p-1.5 rounded-md transition-all duration-300 text-sm",
-        client.isCreator ? "bg-sky-500/10" : isCurrentUser ? "bg-primary-400/10" : "bg-transparent"
+        "flex items-center gap-3 p-2 pr-3 rounded-full transition-all duration-300",
+        client.isCreator ? "bg-sky-500/10 border border-sky-500/20" : isCurrentUser ? "bg-[#b026ff]/10 border border-[#b026ff]/20" : "bg-neutral-900/50 hover:bg-neutral-800/80 border border-transparent"
       )}
       initial={{ opacity: 0.8 }}
       animate={{
@@ -126,15 +125,15 @@ export const ConnectedUserItem = memo<ConnectedUserItemProps>(({ client, isCurre
         </Tooltip>
       )}
       <div className="flex flex-col min-w-0">
-        <div className="text-xs font-medium truncate">
+        <div className="text-sm font-semibold tracking-tight truncate text-white">
           <span>{client.username}</span>
         </div>
       </div>
       <Badge
         variant={client.isCreator ? "default" : isCurrentUser ? "default" : "outline"}
         className={cn(
-          "ml-auto text-xs shrink-0 min-w-[60px] text-center py-0 h-5",
-          client.isCreator ? "bg-sky-600 text-sky-50" : isCurrentUser ? "bg-primary-600 text-primary-50" : ""
+          "ml-auto text-xs shrink-0 min-w-[60px] text-center py-0.5 h-6 rounded-full font-medium tracking-wide shadow-sm",
+          client.isCreator ? "bg-sky-600/20 text-sky-400 border-sky-500/30" : isCurrentUser ? "bg-[#b026ff]/20 text-[#d884ff] border-[#b026ff]/30" : "bg-neutral-800 text-neutral-400 border-neutral-700"
         )}
       >
         {client.isCreator ? "Creator" : isCurrentUser ? "You" : "Connected"}

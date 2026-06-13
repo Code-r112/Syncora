@@ -2,8 +2,9 @@
 import { SOCIAL_LINKS } from "@/constants";
 import { audioContextManager } from "@/lib/audioContextManager";
 import { MAX_NTP_MEASUREMENTS, useGlobalStore } from "@/store/global";
-import { Crown, Hash, Users, Video, MonitorPlay, Search, SlidersHorizontal } from "lucide-react";
+import { Crown, Hash, Users, Video, MonitorPlay, Search, SlidersHorizontal, Share2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { toast } from "sonner";
 import React, { useState } from "react";
 import Link from "next/link";
 
@@ -14,9 +15,10 @@ interface TopBarProps {
   roomId: string;
   onEqClick?: () => void;
   onSearchClick?: () => void;
+  onProfileClick?: () => void;
 }
 
-export const TopBar = ({ roomId, onEqClick, onSearchClick }: TopBarProps) => {
+export const TopBar = ({ roomId, onEqClick, onSearchClick, onProfileClick }: TopBarProps) => {
   const isLoadingAudio = useGlobalStore((state) => state.isInitingSystem);
   const isSynced = useGlobalStore((state) => state.isSynced);
   const roundTripEstimate = useGlobalStore((state) => state.roundTripEstimate);
@@ -41,52 +43,6 @@ export const TopBar = ({ roomId, onEqClick, onSearchClick }: TopBarProps) => {
             <span className="text-white text-lg font-bold tracking-tight">Syncora</span>
           </Link>
 
-          {/* NTP Measurements Indicator */}
-          <div className="items-center hidden md:flex font-medium font-mono text-[11px] gap-1 shrink-0">
-            <motion.svg width="14" height="14" viewBox="0 0 14 14" className="mr-1">
-              <circle
-                cx="7"
-                cy="7"
-                r="5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="text-[#333333]"
-              />
-              <motion.circle
-                cx="7"
-                cy="7"
-                r="5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="text-[#b026ff]"
-                strokeDasharray={`${(syncMeasurementCount / MAX_NTP_MEASUREMENTS) * 31.4} 31.4`}
-                strokeLinecap="round"
-                transform="rotate(-90 7 7)"
-                initial={{ strokeDasharray: "0 31.4" }}
-                animate={{
-                  strokeDasharray: `${(syncMeasurementCount / MAX_NTP_MEASUREMENTS) * 31.4} 31.4`,
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-            </motion.svg>
-            <span>
-              {syncMeasurementCount}/{MAX_NTP_MEASUREMENTS}
-            </span>
-          </div>
-          <div className="hidden lg:flex items-center font-medium font-mono text-[11px] shrink-0">
-            <Hash size={12} className="mr-1" />
-            <span className="flex items-center">{roomId}</span>
-          </div>
-          <div className="hidden lg:flex items-center font-medium font-mono text-[11px] shrink-0">
-            <Users size={12} className="mr-1" />
-            <span className="flex items-center">
-              <span className="mr-1.5">
-                {connectedClientCount} {connectedClientCount === 1 ? "user" : "users"}
-              </span>
-            </span>
-          </div>
         </div>
 
         {/* CENTER SIDE (Search Bar) - Desktop Only */}
@@ -96,12 +52,23 @@ export const TopBar = ({ roomId, onEqClick, onSearchClick }: TopBarProps) => {
 
         {/* RIGHT SIDE OF TOPBAR */}
         <div className="flex-1 flex items-center justify-end space-x-1 shrink-0">
+          {/* Mobile Buttons */}
           <button className="lg:hidden p-2 text-[#b3b3b3] hover:text-white transition-colors" onClick={onEqClick}>
             <SlidersHorizontal className="w-6 h-6" />
           </button>
           <button className="lg:hidden p-2 text-[#b3b3b3] hover:text-white transition-colors" onClick={onSearchClick}>
             <Search className="w-6 h-6" />
           </button>
+
+          {/* User Profile Trigger */}
+          <div className="flex items-center space-x-3 pr-2">
+            <button 
+              onClick={onProfileClick}
+              className="flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-tr from-[#b026ff] to-[#d87bff] text-white font-bold text-xl uppercase shadow-md hover:scale-105 hover:shadow-lg hover:shadow-[#b026ff]/20 transition-all active:scale-95"
+            >
+              {currentUser?.username?.[0] || "?"}
+            </button>
+          </div>
         </div>
       </div>
     );

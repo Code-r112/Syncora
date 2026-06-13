@@ -48,8 +48,8 @@
 
   /* Sound wave animations */
   --animate-sound-wave-1: sound-wave-1 1.2s ease-in-out infinite;
-  --animate-sound-wave-2: sound-wave-2 1.4s ease-in-out infinite;
   --animate-sound-wave-3: sound-wave-3 1s ease-in-out infinite;
+  --animate-marquee: marquee 15s linear infinite;
 }
 
 :root {
@@ -198,6 +198,15 @@
     }
     66% {
       height: 30%;
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
     }
   }
 }

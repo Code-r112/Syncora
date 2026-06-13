@@ -69,7 +69,7 @@ export const FullPreview = () => {
           </div>
         )}
 
-        <div className="w-full mt-8 md:mt-12 shrink-0 max-w-md">
+        <div className="w-full mt-8 md:mt-12 shrink-0 max-w-md lg:hidden">
           <Player />
         </div>
       </motion.div>

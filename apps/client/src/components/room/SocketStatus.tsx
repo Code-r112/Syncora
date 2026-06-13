@@ -6,8 +6,10 @@ export const SocketStatus = () => {
   const socket = useGlobalStore((state) => state.socket);
   const [isFlashing, setIsFlashing] = useState(false);
 
+  type StatusType = "disconnected" | "connecting" | "connected" | "closing" | "unknown";
+  
   // Get socket status
-  const getStatus = () => {
+  const getStatus = (): StatusType => {
     if (!socket) return "disconnected";
 
     // WebSocket readyState values:

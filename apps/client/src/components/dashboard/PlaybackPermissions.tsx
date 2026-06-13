@@ -5,7 +5,7 @@ import { useGlobalStore } from "@/store/global";
 import { sendWSRequest } from "@/utils/ws";
 import { ClientActionEnum, PlaybackControlsPermissionsEnum } from "@beatsync/shared";
 import { Crown, Play, Users } from "lucide-react";
-import { motion } from "motion/react";
+import { Switch } from "@/components/ui/switch";
 
 export const PlaybackPermissions = () => {
   const currentUser = useGlobalStore((state) => state.currentUser);
@@ -36,63 +36,25 @@ export const PlaybackPermissions = () => {
   };
 
   return (
-    <div className="">
-      <div className="flex items-center justify-between px-4 pt-3">
-        <h2 className="text-xs font-medium uppercase tracking-wider text-neutral-500 flex items-center gap-2">
-          <Play className="h-3.5 w-3.5" />
-          <span>Playback Permissions</span>
-        </h2>
-      </div>
-
-      <div className="px-4 pb-3">
-        {/* Toggle Container */}
-        <button
-          onClick={isAdmin ? handleToggle : undefined}
-          disabled={!isAdmin}
-          className={cn(
-            "relative flex w-full h-8 bg-neutral-800 rounded-lg p-0.5 mt-2.5 focus:outline-none",
-            isAdmin ? "cursor-pointer" : "opacity-75"
-          )}
-        >
-          {/* Sliding Background */}
-          <motion.div
-            className={cn(
-              "absolute inset-y-0.5 w-1/2 transition-colors duration-300 rounded-lg",
-              isAdminOnly ? "bg-[#b026ff]" : "bg-[#b026ff]"
-            )}
-            initial={false}
-            animate={{
-              x: isAdminOnly ? "calc(100% - 4px)" : 0,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 700,
-              damping: 40,
-            }}
+    <div className="px-4 py-4">
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5">
+            <h2 className="text-sm font-medium text-white flex items-center gap-2">
+              <Crown className="h-4 w-4 text-[#b026ff]" />
+              Admin Only Controls
+            </h2>
+            <p className="text-xs text-neutral-500 max-w-[200px]">
+              Only room admins can pause, play, or skip tracks.
+            </p>
+          </div>
+          <Switch
+            checked={isAdminOnly}
+            onCheckedChange={handleToggle}
+            disabled={!isAdmin}
+            className="data-[state=checked]:!bg-[#b026ff]"
           />
-
-          {/* Everyone Option */}
-          <div
-            className={cn(
-              "relative z-10 flex-1 flex items-center justify-center gap-1.5 text-xs font-medium transition-colors duration-200 h-full",
-              !isAdminOnly ? "text-black" : "text-neutral-400"
-            )}
-          >
-            <Users className="h-3 w-3" />
-            <span>Everyone</span>
-          </div>
-
-          {/* Admin Only Option */}
-          <div
-            className={cn(
-              "relative z-10 flex-1 flex items-center justify-center gap-1.5 text-xs font-medium transition-colors duration-200 h-full",
-              isAdminOnly ? "text-black" : "text-neutral-400"
-            )}
-          >
-            <Crown className="h-3 w-3" />
-            <span>Admins</span>
-          </div>
-        </button>
+        </div>
       </div>
     </div>
   );

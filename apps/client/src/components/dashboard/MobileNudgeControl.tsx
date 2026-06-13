@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { useGlobalStore } from "@/store/global";
 import { Minus, Plus, Timer } from "lucide-react";
 import { useState } from "react";
-import { MetronomeButton } from "./Metronome";
 
 const STEP_OPTIONS = [10, 50, 100] as const;
 
@@ -59,10 +58,6 @@ export const MobileNudgeControl = () => {
           >
             <Plus className="h-4 w-4" />
           </button>
-        </div>
-
-        <div className="mt-3">
-          <MetronomeButton />
         </div>
       </div>
     </div>

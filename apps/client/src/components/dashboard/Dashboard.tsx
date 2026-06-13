@@ -66,6 +66,7 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
           roomId={roomId}
           onEqClick={() => setShowMobileEq(true)}
           onSearchClick={() => setShowMobileSearch(true)}
+          onProfileClick={() => setActiveLeftTab(activeLeftTab === "room" ? null : "room")}
         />
       </div>
 
@@ -88,21 +89,21 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                 <div className="w-[64px] h-full flex flex-col items-center py-4 gap-4 z-10 bg-transparent">
                   <button
                     onClick={() => setActiveLeftTab(activeLeftTab === "room" ? null : "room")}
-                    className={`p-3 rounded-full transition-colors ${activeLeftTab === "room" ? "text-white bg-[#1a1a1a]" : "text-[#b3b3b3] hover:text-white"}`}
+                    className={`p-3 rounded-full transition-colors ${activeLeftTab === "room" ? "text-white bg-black/40" : "text-[#b3b3b3] hover:text-white"}`}
                     title="Room Settings"
                   >
                     <Hash size={24} strokeWidth={2.5} />
                   </button>
                   <button
                     onClick={() => setActiveLeftTab(activeLeftTab === "users" ? null : "users")}
-                    className={`p-3 rounded-full transition-colors ${activeLeftTab === "users" ? "text-white bg-[#1a1a1a]" : "text-[#b3b3b3] hover:text-white"}`}
+                    className={`p-3 rounded-full transition-colors ${activeLeftTab === "users" ? "text-white bg-black/40" : "text-[#b3b3b3] hover:text-white"}`}
                     title="Connected Users"
                   >
                     <Users size={24} strokeWidth={2.5} />
                   </button>
                   <button
                     onClick={() => setActiveLeftTab(activeLeftTab === "upload" ? null : "upload")}
-                    className={`p-3 rounded-full transition-colors ${activeLeftTab === "upload" ? "text-white bg-[#1a1a1a]" : "text-[#b3b3b3] hover:text-white"}`}
+                    className={`p-3 rounded-full transition-colors ${activeLeftTab === "upload" ? "text-white bg-black/40" : "text-[#b3b3b3] hover:text-white"}`}
                     title="Upload Song"
                   >
                     <UploadCloud size={24} strokeWidth={2.5} />
@@ -148,7 +149,7 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                         {activeRightTab === "chat" ? (
                           <div className="flex-1 overflow-hidden h-full flex flex-col">
                             <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                              <span className="font-bold text-base flex items-center gap-2">Chat</span>
+                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">Chat</span>
                             </div>
                             <div className="flex-1 overflow-hidden">
                               <Chat />
@@ -157,7 +158,7 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                         ) : activeRightTab === "eq" ? (
                           <div className="flex-1 overflow-hidden h-full flex flex-col">
                             <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                              <span className="font-bold text-base flex items-center gap-2">Equalizer</span>
+                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">Equalizer</span>
                             </div>
                             <div className="flex-1 overflow-auto">
                               <Equalizer />
@@ -166,7 +167,7 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                         ) : (
                           <div className="flex-1 overflow-hidden h-full flex flex-col">
                             <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                              <span className="font-bold text-base flex items-center gap-2">Queue</span>
+                              <span className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">Queue</span>
                             </div>
                             <div className="flex-1 overflow-y-auto overflow-x-hidden">
                               <div className="p-4 pt-0">
@@ -184,21 +185,21 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                 <div className="w-[64px] h-full flex flex-col items-center py-4 gap-4 z-10 bg-transparent">
                   <button
                     onClick={() => setActiveRightTab(activeRightTab === "queue" ? null : "queue")}
-                    className={`p-3 rounded-full transition-colors ${activeRightTab === "queue" ? "text-white bg-[#1a1a1a]" : "text-[#b3b3b3] hover:text-white"}`}
+                    className={`p-3 rounded-full transition-colors ${activeRightTab === "queue" ? "text-white bg-black/40" : "text-[#b3b3b3] hover:text-white"}`}
                     title="Queue"
                   >
                     <ListMusic size={24} strokeWidth={2.5} />
                   </button>
                   <button
                     onClick={() => setActiveRightTab(activeRightTab === "chat" ? null : "chat")}
-                    className={`p-3 rounded-full transition-colors ${activeRightTab === "chat" ? "text-white bg-[#1a1a1a]" : "text-[#b3b3b3] hover:text-white"}`}
+                    className={`p-3 rounded-full transition-colors ${activeRightTab === "chat" ? "text-white bg-black/40" : "text-[#b3b3b3] hover:text-white"}`}
                     title="Chat"
                   >
                     <MessageCircle size={24} strokeWidth={2.5} />
                   </button>
                   <button
                     onClick={() => setActiveRightTab(activeRightTab === "eq" ? null : "eq")}
-                    className={`p-3 rounded-full transition-colors ${activeRightTab === "eq" ? "text-white bg-[#1a1a1a]" : "text-[#b3b3b3] hover:text-white"}`}
+                    className={`p-3 rounded-full transition-colors ${activeRightTab === "eq" ? "text-white bg-black/40" : "text-[#b3b3b3] hover:text-white"}`}
                     title="Equalizer"
                   >
                     <SlidersHorizontal size={24} strokeWidth={2.5} />
@@ -267,7 +268,7 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                           className="h-full flex flex-col"
                         >
                           <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                            <span className="font-bold text-base flex items-center gap-2 text-white">Queue</span>
+                            <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">Queue</span>
                           </div>
                           <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pt-0">
                             <Queue />
@@ -283,7 +284,7 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                           className="h-full flex flex-col"
                         >
                           <div className="px-4 py-4 flex justify-between items-center shrink-0">
-                            <span className="font-bold text-base flex items-center gap-2 text-white">Chat</span>
+                            <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">Chat</span>
                           </div>
                           <Chat />
                         </motion.div>
@@ -304,7 +305,7 @@ export const Dashboard = ({ roomId }: DashboardProps) => {
                     className="absolute inset-0 z-50 bg-[#121212] flex flex-col rounded-lg overflow-hidden"
                   >
                     <div className="px-4 py-4 flex justify-between items-center shrink-0 bg-[#1a1a1a] shadow-md z-10">
-                      <span className="font-bold text-base flex items-center gap-2 text-white">Equalizer</span>
+                      <span className="font-bold text-2xl tracking-tight flex items-center gap-2 text-white">Equalizer</span>
                       <button
                         onClick={() => setShowMobileEq(false)}
                         className="p-1.5 hover:bg-neutral-800 rounded-full transition-colors"

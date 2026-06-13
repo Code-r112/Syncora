@@ -91,8 +91,9 @@ export function InlineSearch({ isMobileOverlay, onClose }: InlineSearchProps = {
   React.useEffect(() => {
     if (!watchedQuery || watchedQuery.trim() === "") {
       setShowResults(false);
+      setSearchQuery(""); // Clear global search query to return to Home
     }
-  }, [watchedQuery]);
+  }, [watchedQuery, setSearchQuery]);
 
   const onSubmit = (data: SearchForm) => {
     if (!canMutate) {
@@ -131,6 +132,7 @@ export function InlineSearch({ isMobileOverlay, onClose }: InlineSearchProps = {
     // Dismiss search results immediately and clear input
     setShowResults(false);
     reset(); // Clear the form input
+    setSearchQuery(""); // Clear global query so Main.tsx goes back to Latest Songs
 
     // Hide checkmark after 2 seconds
     setTimeout(() => {
@@ -301,7 +303,7 @@ export function InlineSearch({ isMobileOverlay, onClose }: InlineSearchProps = {
 
       {/* Search Results Dropdown / Overlay */}
       <AnimatePresence>
-        {(showResults || isMobileOverlay) && canMutate && (
+        {isMobileOverlay && canMutate && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
